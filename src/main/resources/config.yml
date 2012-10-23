@@ -1,0 +1,43 @@
+general:
+  enable-whitelist: 'false'
+  enable-nickname-syncing: 'false'
+  enable-promotion-track: 'false'
+  enable-post-count-rewarding: 'false'
+configuration:
+  forum: phpbb
+  prefix: 'myforum_'
+  use-secondary-group: false
+mysql-connection:
+  mysql-host: localhost
+  mysql-user: root
+  mysql-password: password
+  mysql-database-name: database
+  mysql-port: '3306'
+group-mapping:
+  default:
+    1: ExampleGroup1
+    2: ExampleGroup2
+  exampleworld1:
+      '1': ExampleGroup1
+      '2': ExampleGroup2
+extras:
+  whitelist:
+    kick-message: This is the message a user will see if their group isn't whitelisted.
+    groups:
+    - 1
+    - 2
+  nickname-syncing:
+    nickname-field-in-usertable: nickname_field_user_table
+  synced-banning:
+    banned-user-forum-rank-id: '0'
+    unbanned-user-forum-rank-id: '10'
+    ban-message: This is the message a user will see if they are banned.
+  promotion-track:
+    track: "6|4|68|123|10"
+  rank-changing:
+    identifiers:
+      '1': NickNameforRank1
+      '7': NickNameforAnotherRank
+  post-count-rewarding:
+    post-count-field-in-user-table: post-count-field-user-table
+    currency-reward-per-post: '40'
