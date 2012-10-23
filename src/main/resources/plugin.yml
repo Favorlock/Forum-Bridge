@@ -1,9 +1,8 @@
-name: OKB3
+name: Forum-Bridge
 author:
-    - Kalman Olah
-    - greatman321
-main: com.greatmancode.okb3.OKB
-version: 3.7.1
+    - Favorlock
+main: com.favorlock.ForumBridge.OKB
+version: 1.0.0
 database: false
 description: A forum bridge plugin for Bukkit.
 commands:
