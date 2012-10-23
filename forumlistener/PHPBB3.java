@@ -5,10 +5,10 @@ import java.util.ArrayList;
 
 import java.util.List;
 
-import com.greatmancode.extras.PHPBB3Password;
-import com.greatmancode.okb3.OKBSync;
-import com.greatmancode.okb3.OKBWebsiteDB;
-import com.greatmancode.okb3.OKConfig;
+import com.favorlock.ForumBridge.extras.PHPBB3Password;
+import com.favorlock.ForumBridge.OKBSync;
+import com.favorlock.ForumBridge.OKBWebsiteDB;
+import com.favorlock.ForumBridge.OKConfig;
 
 public class PHPBB3 implements OKBSync
 {

@@ -4,10 +4,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.greatmancode.extras.Tools;
-import com.greatmancode.okb3.OKBSync;
-import com.greatmancode.okb3.OKBWebsiteDB;
-import com.greatmancode.okb3.OKConfig;
+import com.favorlock.ForumBridge.extras.Tools;
+import com.favorlock.ForumBridge.OKBSync;
+import com.favorlock.ForumBridge.OKBWebsiteDB;
+import com.favorlock.ForumBridge.OKConfig;
 
 public class vBulletin implements OKBSync {
 
