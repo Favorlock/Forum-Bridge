@@ -57,14 +57,7 @@ public class OKRunnable implements Runnable
                         OKB.p.getServer().getScheduler().scheduleAsyncDelayedTask(OKB.p, new OKBWhitelistWait(thePlayer), 600L);
                     }
                 }
-                //We alert that the player connected
                 
-                //Is the player login stealth enabled?
-                if (!thePlayer.hasPermission("bbb.hide"))
-                {
-                    OKB.p.getServer().broadcastMessage(ChatColor.YELLOW + thePlayer.getDisplayName() + ChatColor.YELLOW + " joined the game!");
-                    joinevent.setJoinMessage(ChatColor.YELLOW + thePlayer.getDisplayName() + " joined the game!");
-                }
                 OKB.worldUpdate.put(thePlayer.getName(), thePlayer.getWorld().getName());
                 //Everything done, we sync the player!
                 OKFunctions.syncPlayer(thePlayer.getName(), thePlayer.getWorld().getName());
