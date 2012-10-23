@@ -20,8 +20,8 @@ public class XenForo implements OKBSync
         boolean exist = false;
         try
         {
-            ResultSet rs = OKBWebsiteDB.dbm.prepare("SELECT data FROM " + (String) OKConfig.tablePrefix + "xf_user_authenticate," + (String) OKConfig.tablePrefix
-                    + "xf_user WHERE " + OKConfig.tablePrefix + "xf_user.username = '" + username + "' AND " + OKConfig.tablePrefix + "xf_user.user_id = " + OKConfig.tablePrefix + "xf_user_authenticate.user_id").executeQuery();
+            ResultSet rs = OKBWebsiteDB.dbm.prepare("SELECT data FROM " + (String) OKConfig.tablePrefix + "user_authenticate," + (String) OKConfig.tablePrefix
+                    + "user WHERE " + OKConfig.tablePrefix + "user.username = '" + username + "' AND " + OKConfig.tablePrefix + "user.user_id = " + OKConfig.tablePrefix + "user_authenticate.user_id").executeQuery();
             if (rs.next())
             {
                 do
@@ -51,7 +51,7 @@ public class XenForo implements OKBSync
     {
         try
         {
-            OKBWebsiteDB.dbm.prepare("UPDATE " + OKConfig.tablePrefix + "xf_user," + OKConfig.tablePrefix+ "xf_user_authenticate SET user_group_id='" + forumGroupId + "' WHERE " + OKConfig.tablePrefix + "xf_user.username='" + username + "' AND " + OKConfig.tablePrefix + "xf_user.user_id=xf_user_authenticate.user_id").executeUpdate();
+            OKBWebsiteDB.dbm.prepare("UPDATE " + OKConfig.tablePrefix + "user," + OKConfig.tablePrefix+ "user_authenticate SET user_group_id='" + forumGroupId + "' WHERE " + OKConfig.tablePrefix + "user.username='" + username + "' AND " + OKConfig.tablePrefix + "user.user_id=xf_user_authenticate.user_id").executeUpdate();
         }
         catch (SQLException e)
         {
@@ -77,7 +77,7 @@ public class XenForo implements OKBSync
     {
     	//first one
         List<Integer> group = new ArrayList<Integer>(); 
-        String query1 = "SELECT user_group_id,data FROM " + OKConfig.tablePrefix + "xf_user," + OKConfig.tablePrefix + "xf_user_authenticate WHERE " + OKConfig.tablePrefix + "xf_user.username = '" + username + "'  AND " + OKConfig.tablePrefix + "xf_user.user_id = " + OKConfig.tablePrefix + "xf_user_authenticate.user_id";
+        String query1 = "SELECT user_group_id,data FROM " + OKConfig.tablePrefix + "user," + OKConfig.tablePrefix + "user_authenticate WHERE " + OKConfig.tablePrefix + "user.username = '" + username + "'  AND " + OKConfig.tablePrefix + "user.user_id = " + OKConfig.tablePrefix + "user_authenticate.user_id";
         try
         {
             ResultSet rs = OKBWebsiteDB.dbm.prepare(query1).executeQuery();
@@ -96,7 +96,7 @@ public class XenForo implements OKBSync
         if (OKConfig.useSecondaryGroups)
 		{
         	//second one
-            String query2 = "SELECT secondary_group_ids,data FROM " + OKConfig.tablePrefix + "xf_user," + OKConfig.tablePrefix + "xf_user_authenticate WHERE " + OKConfig.tablePrefix + "xf_user.username = '" + username + "'  AND " + OKConfig.tablePrefix + "xf_user.user_id = " + OKConfig.tablePrefix + "xf_user_authenticate.user_id";
+            String query2 = "SELECT secondary_group_ids,data FROM " + OKConfig.tablePrefix + "user," + OKConfig.tablePrefix + "user_authenticate WHERE " + OKConfig.tablePrefix + "user.username = '" + username + "'  AND " + OKConfig.tablePrefix + "user.user_id = " + OKConfig.tablePrefix + "user_authenticate.user_id";
             try
             {
                 ResultSet rs2 = OKBWebsiteDB.dbm.prepare(query2).executeQuery();
