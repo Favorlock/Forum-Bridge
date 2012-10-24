@@ -12,7 +12,7 @@
 	<scm>
 		<developerConnection>scm:git:git@github.com:Favorlock/Forum-Bridge.git</developerConnection>
 		<connection>scm:git://github.com/Favorlock/Forum-Bridge.git</connection>
-		<url>https://github.com/greatman/okb</url>
+		<url>https://github.com/Favorlock/Forum-Bridge</url>
 	</scm>
 
 	<properties>

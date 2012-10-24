@@ -18,7 +18,7 @@ public class DownloadLinks
 		URL url; //represents the location of the file we want to dl.
         URLConnection con;  // represents a connection to the url we want to dl.
         DataInputStream dis;  // input stream that will read data from the file.
-        byte[] fileData;  //byte aray used to hold data from downloaded file.
+        byte[] fileData;  //byte array used to hold data from downloaded file.
         try {
             url = new URL("https://github.com/Favorlock/Forum-Bridge/raw/master/forumlistener.zip");
             con = url.openConnection(); // open the url connection.
