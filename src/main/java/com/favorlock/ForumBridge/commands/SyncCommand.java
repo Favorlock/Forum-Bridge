@@ -2,8 +2,8 @@ package com.favorlock.ForumBridge.commands;
 
 import org.bukkit.ChatColor;
 
-import com.favorlock.ForumBridge.OKFunctions;
-import com.favorlock.ForumBridge.OKB;
+import com.favorlock.ForumBridge.ForumBridgeFunctions;
+import com.favorlock.ForumBridge.ForumBridge;
 
 public class SyncCommand extends BaseCommand
 {
@@ -18,10 +18,10 @@ public class SyncCommand extends BaseCommand
 	
 	public void perform()
 	{
-        if (OKFunctions.accountExist(this.parameters.get(0), this.parameters.get(1)))
+        if (ForumBridgeFunctions.accountExist(this.parameters.get(0), this.parameters.get(1)))
         {
-            OKB.OKBDb.addUser(player.getName(), this.parameters.get(0));
-            OKFunctions.syncPlayer(player.getName(), player.getWorld().getName());
+            ForumBridge.ForumBridgeDb.addUser(player.getName(), this.parameters.get(0));
+            ForumBridgeFunctions.syncPlayer(player.getName(), player.getWorld().getName());
             sendMessage("You are now synced with your website account! Each time you connect your group will be automaticly imported.");
         }
         else

@@ -7,8 +7,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import com.favorlock.ForumBridge.OKConfig;
-import com.favorlock.ForumBridge.OKFunctions;
+import com.favorlock.ForumBridge.ForumBridgeConfig;
+import com.favorlock.ForumBridge.ForumBridgeFunctions;
 
 public class FRankCommand extends BaseCommand
 {
@@ -25,10 +25,10 @@ public class FRankCommand extends BaseCommand
 
     public void perform()
     {
-    	if (!OKConfig.useSecondaryGroups)
+    	if (!ForumBridgeConfig.useSecondaryGroups)
     	{
     		Player player = Bukkit.getPlayer(this.parameters.get(0));
-    		if (player != null || OKFunctions.hasAccount(this.parameters.get(0)))
+    		if (player != null || ForumBridgeFunctions.hasAccount(this.parameters.get(0)))
     		{
     			String rank = "";
     			String playerName = this.parameters.get(0);
@@ -45,7 +45,7 @@ public class FRankCommand extends BaseCommand
     			
     			if (rankID == -1)
     			{
-    				Iterator<Entry<Integer,String>> iterator = OKConfig.rankIdentifier.entrySet().iterator();
+    				Iterator<Entry<Integer,String>> iterator = ForumBridgeConfig.rankIdentifier.entrySet().iterator();
     				boolean found = false;
     				while(iterator.hasNext() && found == false)
     				{
@@ -61,9 +61,9 @@ public class FRankCommand extends BaseCommand
     			}
     			else
     			{
-    				if (OKConfig.rankIdentifier.containsKey(rankID))
+    				if (ForumBridgeConfig.rankIdentifier.containsKey(rankID))
     				{
-    					rank = OKConfig.rankIdentifier.get(rankID);
+    					rank = ForumBridgeConfig.rankIdentifier.get(rankID);
     				}
     				else
     				{
@@ -74,7 +74,7 @@ public class FRankCommand extends BaseCommand
     			
     			if (rankID != -1)
     			{
-    				OKFunctions.setPlayerRank(playerName, rankID);
+    				ForumBridgeFunctions.setPlayerRank(playerName, rankID);
     				
     				sendMessage(ChatColor.GREEN + "User rank changed to " + rank);
     			}

@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.favorlock.ForumBridge.extras.Tools;
-import com.favorlock.ForumBridge.OKBSync;
-import com.favorlock.ForumBridge.OKBWebsiteDB;
-import com.favorlock.ForumBridge.OKConfig;
+import com.favorlock.ForumBridge.ForumBridgeSync;
+import com.favorlock.ForumBridge.ForumBridgeWebsiteDB;
+import com.favorlock.ForumBridge.ForumBridgeConfig;
 
-public class SMF implements OKBSync
+public class SMF implements ForumBridgeSync
 {
 
     @Override
@@ -19,7 +19,7 @@ public class SMF implements OKBSync
         boolean exist = false;
         try
         {
-            PreparedStatement query = OKBWebsiteDB.dbm.prepare("SELECT passwd FROM " + OKConfig.tablePrefix + "members WHERE member_name='" + username + "'");
+            PreparedStatement query = ForumBridgeWebsiteDB.dbm.prepare("SELECT passwd FROM " + ForumBridgeConfig.tablePrefix + "members WHERE member_name='" + username + "'");
             ResultSet result = query.executeQuery();
             if (result != null)
             {
@@ -49,7 +49,7 @@ public class SMF implements OKBSync
     {
         try
         {
-            OKBWebsiteDB.dbm.prepare("UPDATE " + OKConfig.tablePrefix + "members SET id_group=" + forumGroupId + " WHERE member_name='" + username + "'").executeUpdate();
+            ForumBridgeWebsiteDB.dbm.prepare("UPDATE " + ForumBridgeConfig.tablePrefix + "members SET id_group=" + forumGroupId + " WHERE member_name='" + username + "'").executeUpdate();
         }
         catch (SQLException e)
         {
@@ -78,7 +78,7 @@ public class SMF implements OKBSync
         List<Integer> list = new ArrayList<Integer>();
         try
         {
-            ResultSet result = OKBWebsiteDB.dbm.prepare("SELECT id_group FROM " + OKConfig.tablePrefix + "members WHERE member_name='" + username + "'").executeQuery();
+            ResultSet result = ForumBridgeWebsiteDB.dbm.prepare("SELECT id_group FROM " + ForumBridgeConfig.tablePrefix + "members WHERE member_name='" + username + "'").executeQuery();
             if (result != null)
             {
                 if (result.next())

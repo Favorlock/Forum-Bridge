@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.favorlock.ForumBridge.extras.Tools;
-import com.favorlock.ForumBridge.OKBSync;
-import com.favorlock.ForumBridge.OKBWebsiteDB;
-import com.favorlock.ForumBridge.OKConfig;
+import com.favorlock.ForumBridge.ForumBridgeSync;
+import com.favorlock.ForumBridge.ForumBridgeWebsiteDB;
+import com.favorlock.ForumBridge.ForumBridgeConfig;
 
-public class XenForo implements OKBSync
+public class XenForo implements ForumBridgeSync
 {
 	public XenForo()
 	{
@@ -20,8 +20,8 @@ public class XenForo implements OKBSync
         boolean exist = false;
         try
         {
-            ResultSet rs = OKBWebsiteDB.dbm.prepare("SELECT data FROM " + (String) OKConfig.tablePrefix + "user_authenticate," + (String) OKConfig.tablePrefix
-                    + "user WHERE " + OKConfig.tablePrefix + "user.username = '" + username + "' AND " + OKConfig.tablePrefix + "user.user_id = " + OKConfig.tablePrefix + "user_authenticate.user_id").executeQuery();
+            ResultSet rs = ForumBridgeWebsiteDB.dbm.prepare("SELECT data FROM " + (String) ForumBridgeConfig.tablePrefix + "user_authenticate," + (String) ForumBridgeConfig.tablePrefix
+                    + "user WHERE " + ForumBridgeConfig.tablePrefix + "user.username = '" + username + "' AND " + ForumBridgeConfig.tablePrefix + "user.user_id = " + ForumBridgeConfig.tablePrefix + "user_authenticate.user_id").executeQuery();
             if (rs.next())
             {
                 do
@@ -51,7 +51,7 @@ public class XenForo implements OKBSync
     {
         try
         {
-            OKBWebsiteDB.dbm.prepare("UPDATE " + OKConfig.tablePrefix + "user," + OKConfig.tablePrefix+ "user_authenticate SET user_group_id='" + forumGroupId + "' WHERE " + OKConfig.tablePrefix + "user.username='" + username + "' AND " + OKConfig.tablePrefix + "user.user_id=xf_user_authenticate.user_id").executeUpdate();
+            ForumBridgeWebsiteDB.dbm.prepare("UPDATE " + ForumBridgeConfig.tablePrefix + "user," + ForumBridgeConfig.tablePrefix+ "user_authenticate SET user_group_id='" + forumGroupId + "' WHERE " + ForumBridgeConfig.tablePrefix + "user.username='" + username + "' AND " + ForumBridgeConfig.tablePrefix + "user.user_id=xf_user_authenticate.user_id").executeUpdate();
         }
         catch (SQLException e)
         {
@@ -77,10 +77,10 @@ public class XenForo implements OKBSync
     {
     	//first one
         List<Integer> group = new ArrayList<Integer>(); 
-        String query1 = "SELECT user_group_id,data FROM " + OKConfig.tablePrefix + "user," + OKConfig.tablePrefix + "user_authenticate WHERE " + OKConfig.tablePrefix + "user.username = '" + username + "'  AND " + OKConfig.tablePrefix + "user.user_id = " + OKConfig.tablePrefix + "user_authenticate.user_id";
+        String query1 = "SELECT user_group_id,data FROM " + ForumBridgeConfig.tablePrefix + "user," + ForumBridgeConfig.tablePrefix + "user_authenticate WHERE " + ForumBridgeConfig.tablePrefix + "user.username = '" + username + "'  AND " + ForumBridgeConfig.tablePrefix + "user.user_id = " + ForumBridgeConfig.tablePrefix + "user_authenticate.user_id";
         try
         {
-            ResultSet rs = OKBWebsiteDB.dbm.prepare(query1).executeQuery();
+            ResultSet rs = ForumBridgeWebsiteDB.dbm.prepare(query1).executeQuery();
             if (rs.next())
             {
                 group.add(rs.getInt("user_group_id"));
@@ -93,13 +93,13 @@ public class XenForo implements OKBSync
             e.printStackTrace();
         }
         
-        if (OKConfig.useSecondaryGroups)
+        if (ForumBridgeConfig.useSecondaryGroups)
 		{
         	//second one
-            String query2 = "SELECT secondary_group_ids,data FROM " + OKConfig.tablePrefix + "user," + OKConfig.tablePrefix + "user_authenticate WHERE " + OKConfig.tablePrefix + "user.username = '" + username + "'  AND " + OKConfig.tablePrefix + "user.user_id = " + OKConfig.tablePrefix + "user_authenticate.user_id";
+            String query2 = "SELECT secondary_group_ids,data FROM " + ForumBridgeConfig.tablePrefix + "user," + ForumBridgeConfig.tablePrefix + "user_authenticate WHERE " + ForumBridgeConfig.tablePrefix + "user.username = '" + username + "'  AND " + ForumBridgeConfig.tablePrefix + "user.user_id = " + ForumBridgeConfig.tablePrefix + "user_authenticate.user_id";
             try
             {
-                ResultSet rs2 = OKBWebsiteDB.dbm.prepare(query2).executeQuery();
+                ResultSet rs2 = ForumBridgeWebsiteDB.dbm.prepare(query2).executeQuery();
                 String secondarygroups = rs2.getString("secondary_group_ids");
                 String[] splitgroups = secondarygroups.split(",");
                 for (int i = 0; i < splitgroups.length; i++)

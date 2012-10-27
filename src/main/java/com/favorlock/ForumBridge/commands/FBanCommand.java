@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import com.favorlock.ForumBridge.OKFunctions;
+import com.favorlock.ForumBridge.ForumBridgeFunctions;
 import com.favorlock.ForumBridge.extras.TextUtil;
 
 public class FBanCommand extends BaseCommand
@@ -23,7 +23,7 @@ public class FBanCommand extends BaseCommand
     public void perform()
     {
     	Player player = Bukkit.getPlayer(this.parameters.get(0));
-		if (player != null || OKFunctions.hasAccount(this.parameters.get(0)))
+		if (player != null || ForumBridgeFunctions.hasAccount(this.parameters.get(0)))
 		{
 			String playerName = this.parameters.get(0);
 			if (player != null)
@@ -38,7 +38,7 @@ public class FBanCommand extends BaseCommand
 				reason = TextUtil.merge(this.parameters, 1);
 			}
 			
-			OKFunctions.banUser(playerName, reason);
+			ForumBridgeFunctions.banUser(playerName, reason);
 			sendMessage("Player banned!");
 		}
 		else

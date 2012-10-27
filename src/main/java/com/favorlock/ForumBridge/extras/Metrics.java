@@ -400,7 +400,7 @@ public class Metrics {
             throw new IOException(response); //Throw the exception
         } else {
             // Is this the first update this hour?
-            if (response.contains("OK This is your first update this hour")) {
+            if (response.contains("ForumBridge This is your first update this hour")) {
                 synchronized (graphs) {
                     final Iterator<Graph> iter = graphs.iterator();
 
@@ -414,7 +414,7 @@ public class Metrics {
                 }
             }
         }
-        //if (response.startsWith("OK")) - We should get "OK" followed by an optional description if everything goes right
+        //if (response.startsWith("ForumBridge")) - We should get "ForumBridge" followed by an optional description if everything goes right
     }
 
     /**

@@ -11,7 +11,7 @@ import java.util.Set;
 
 import org.bukkit.configuration.MemorySection;
 
-public class OKConfig
+public class ForumBridgeConfig
 {
     public static String 	linkName = "",
                             tablePrefix = "",
@@ -38,7 +38,7 @@ public class OKConfig
     public static HashMap<Integer, String> rankIdentifier = null;
 
     
-    public OKConfig(OKB plugin)
+    public ForumBridgeConfig(ForumBridge plugin)
     {
         File file = new File(plugin.getDataFolder() + File.separator + "config.yml");
         

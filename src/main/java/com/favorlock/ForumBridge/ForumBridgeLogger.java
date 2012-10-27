@@ -3,15 +3,15 @@ package com.favorlock.ForumBridge;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class OKLogger
+public class ForumBridgeLogger
 {
     private static Logger log;
     private static String prefix;
 
     public static void initialize(Logger newLog)
     {
-        OKLogger.log = newLog;
-        prefix = "[" + OKB.name + "] ";
+        ForumBridgeLogger.log = newLog;
+        prefix = "[" + ForumBridge.name + "] ";
     }
 
     public static Logger getLog()
@@ -26,7 +26,7 @@ public class OKLogger
 
     public static void setPrefix(String prefix)
     {
-        OKLogger.prefix = prefix;
+        ForumBridgeLogger.prefix = prefix;
     }
 
     public static void info(String message)

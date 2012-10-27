@@ -2,7 +2,7 @@ package com.favorlock.ForumBridge.commands;
 
 import org.bukkit.ChatColor;
 
-import com.favorlock.ForumBridge.OKFunctions;
+import com.favorlock.ForumBridge.ForumBridgeFunctions;
 
 public class FUnbanCommand extends BaseCommand
 {
@@ -18,9 +18,9 @@ public class FUnbanCommand extends BaseCommand
 
     public void perform()
     {
-		if (OKFunctions.hasAccount(this.parameters.get(0)))
+		if (ForumBridgeFunctions.hasAccount(this.parameters.get(0)))
 		{
-			OKFunctions.unbanUser(this.parameters.get(0));
+			ForumBridgeFunctions.unbanUser(this.parameters.get(0));
 			sendMessage("Player unbanned!");
 		}
 		else

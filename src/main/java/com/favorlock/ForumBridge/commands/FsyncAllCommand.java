@@ -2,8 +2,8 @@ package com.favorlock.ForumBridge.commands;
 
 import org.bukkit.entity.Player;
 
-import com.favorlock.ForumBridge.OKFunctions;
-import com.favorlock.ForumBridge.OKB;
+import com.favorlock.ForumBridge.ForumBridgeFunctions;
+import com.favorlock.ForumBridge.ForumBridge;
 
 public class FsyncAllCommand extends BaseCommand
 {
@@ -18,12 +18,12 @@ public class FsyncAllCommand extends BaseCommand
 
     public void perform()
     {
-        Player[] players = OKB.p.getServer().getOnlinePlayers();
+        Player[] players = ForumBridge.p.getServer().getOnlinePlayers();
         for (Player p : players)
         {
-        	if (OKFunctions.hasAccount(p.getName()))
+        	if (ForumBridgeFunctions.hasAccount(p.getName()))
         	{
-        		OKFunctions.syncPlayer(p.getName(), p.getWorld().getName());
+        		ForumBridgeFunctions.syncPlayer(p.getName(), p.getWorld().getName());
         	}
         }
         sendMessage("All players with saved accounts has been synced!");

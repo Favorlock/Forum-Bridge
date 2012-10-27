@@ -2,7 +2,7 @@ package com.favorlock.ForumBridge.commands;
 
 import org.bukkit.ChatColor;
 
-import com.favorlock.ForumBridge.OKFunctions;
+import com.favorlock.ForumBridge.ForumBridgeFunctions;
 
 
 public class ResyncCommand extends BaseCommand
@@ -15,7 +15,7 @@ public class ResyncCommand extends BaseCommand
 
     public void perform()
     {
-        if (OKFunctions.syncPlayer(player.getName(), player.getWorld().getName()))
+        if (ForumBridgeFunctions.syncPlayer(player.getName(), player.getWorld().getName()))
         {
             sendMessage("You are now synced!");
         }

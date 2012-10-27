@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.favorlock.ForumBridge.extras.Tools;
-import com.favorlock.ForumBridge.OKBSync;
-import com.favorlock.ForumBridge.OKBWebsiteDB;
-import com.favorlock.ForumBridge.OKConfig;
+import com.favorlock.ForumBridge.ForumBridgeSync;
+import com.favorlock.ForumBridge.ForumBridgeWebsiteDB;
+import com.favorlock.ForumBridge.ForumBridgeConfig;
 
-public class myBB implements OKBSync {
+public class myBB implements ForumBridgeSync {
 
     public myBB() {
         // TODO Auto-generated constructor stub
@@ -21,8 +21,8 @@ public class myBB implements OKBSync {
         boolean exist = false;
         try {
             ResultSet rs =
-                    OKBWebsiteDB.dbm.prepare(
-                            "SELECT password,salt FROM " + OKConfig.tablePrefix
+                    ForumBridgeWebsiteDB.dbm.prepare(
+                            "SELECT password,salt FROM " + ForumBridgeConfig.tablePrefix
                                     + "users WHERE username = '" + username + "'").executeQuery();
             if (rs.next()) {
                 do {
@@ -44,7 +44,7 @@ public class myBB implements OKBSync {
     @Override
     public void changeRank(String username, int forumGroupId) {
         try {
-            OKBWebsiteDB.dbm.prepare("UPDATE " + OKConfig.tablePrefix + "users SET usergroup=" + forumGroupId + " WHERE username = '" + username + "'").executeUpdate();
+            ForumBridgeWebsiteDB.dbm.prepare("UPDATE " + ForumBridgeConfig.tablePrefix + "users SET usergroup=" + forumGroupId + " WHERE username = '" + username + "'").executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -67,7 +67,7 @@ public class myBB implements OKBSync {
         List<Integer> group = new ArrayList<Integer>();
         try
         {
-            ResultSet rs = OKBWebsiteDB.dbm.prepare("SELECT usergroup FROM " + OKConfig.tablePrefix + "users WHERE username = '" + username + "'").executeQuery();
+            ResultSet rs = ForumBridgeWebsiteDB.dbm.prepare("SELECT usergroup FROM " + ForumBridgeConfig.tablePrefix + "users WHERE username = '" + username + "'").executeQuery();
             if (rs.next())
             {
                 do

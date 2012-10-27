@@ -2,7 +2,7 @@ package com.favorlock.ForumBridge.commands;
 
 import org.bukkit.ChatColor;
 
-import com.favorlock.ForumBridge.OKB;
+import com.favorlock.ForumBridge.ForumBridge;
 
 public class FUsernameCommand extends BaseCommand {
 	public FUsernameCommand() {
@@ -14,7 +14,7 @@ public class FUsernameCommand extends BaseCommand {
 
 	public void perform()
     {
-    	String username = OKB.OKBDb.getUser(this.parameters.get(0));
+    	String username = ForumBridge.ForumBridgeDb.getUser(this.parameters.get(0));
     	if (!username.equals("")) {
     		sendMessage(ChatColor.DARK_AQUA + this.parameters.get(0) + "'s forum username is " + ChatColor.WHITE + username);
     	} 

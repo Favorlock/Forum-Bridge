@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.favorlock.ForumBridge.extras.PHPBB3Password;
-import com.favorlock.ForumBridge.OKBSync;
-import com.favorlock.ForumBridge.OKBWebsiteDB;
-import com.favorlock.ForumBridge.OKConfig;
+import com.favorlock.ForumBridge.ForumBridgeSync;
+import com.favorlock.ForumBridge.ForumBridgeWebsiteDB;
+import com.favorlock.ForumBridge.ForumBridgeConfig;
 
-public class PHPBB3 implements OKBSync
+public class PHPBB3 implements ForumBridgeSync
 {
     public boolean accountExist(String username, String password)
     {
@@ -18,7 +18,7 @@ public class PHPBB3 implements OKBSync
         PHPBB3Password phpbb = new PHPBB3Password();
         try
         {
-            PreparedStatement query = OKBWebsiteDB.dbm.prepare("SELECT user_password FROM " + OKConfig.tablePrefix + "users WHERE username='" + username + "'");
+            PreparedStatement query = ForumBridgeWebsiteDB.dbm.prepare("SELECT user_password FROM " + ForumBridgeConfig.tablePrefix + "users WHERE username='" + username + "'");
             ResultSet result = query.executeQuery();
             if (result != null)
             {
@@ -45,7 +45,7 @@ public class PHPBB3 implements OKBSync
     {
         try
         {
-            OKBWebsiteDB.dbm.prepare("UPDATE " + OKConfig.tablePrefix + "users SET group_id=" + forumGroupId + " WHERE username='" + username + "'").executeUpdate(); 
+            ForumBridgeWebsiteDB.dbm.prepare("UPDATE " + ForumBridgeConfig.tablePrefix + "users SET group_id=" + forumGroupId + " WHERE username='" + username + "'").executeUpdate(); 
            
         }
         catch (SQLException e)
@@ -77,13 +77,13 @@ public class PHPBB3 implements OKBSync
         
         try
         {
-            if (OKConfig.useSecondaryGroups)
+            if (ForumBridgeConfig.useSecondaryGroups)
             {
-                query = OKBWebsiteDB.dbm.prepare("SELECT group_id FROM " + OKConfig.tablePrefix + "user_group WHERE " + OKConfig.tablePrefix + "users.username=." + username + "' && " + OKConfig.tablePrefix + "users.user_id = " + OKConfig.tablePrefix + "user_group.user_id && " + OKConfig.tablePrefix + "user_group.user_pending = 0");
+                query = ForumBridgeWebsiteDB.dbm.prepare("SELECT group_id FROM " + ForumBridgeConfig.tablePrefix + "user_group WHERE " + ForumBridgeConfig.tablePrefix + "users.username=." + username + "' && " + ForumBridgeConfig.tablePrefix + "users.user_id = " + ForumBridgeConfig.tablePrefix + "user_group.user_id && " + ForumBridgeConfig.tablePrefix + "user_group.user_pending = 0");
             }
             else
             {
-                query = OKBWebsiteDB.dbm.prepare("SELECT group_id FROM " + OKConfig.tablePrefix + "users WHERE username='" + username + "'");
+                query = ForumBridgeWebsiteDB.dbm.prepare("SELECT group_id FROM " + ForumBridgeConfig.tablePrefix + "users WHERE username='" + username + "'");
             }
             result = query.executeQuery();
             if (result != null)

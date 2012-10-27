@@ -35,15 +35,15 @@ import com.favorlock.ForumBridge.extras.Metrics;
 import com.favorlock.ForumBridge.extras.DownloadLinks;
 import com.favorlock.ForumBridge.commands.*;
 
-public class OKB extends JavaPlugin
+public class ForumBridge extends JavaPlugin
 {
     public static String name;
     public static String version;
     public static List<String> authors;
-    public static OKBSync sync;
-    public static OKBInternalDB OKBDb;
+    public static ForumBridgeSync sync;
+    public static ForumBridgeInternalDB ForumBridgeDb;
     public List<BaseCommand> commands = new ArrayList<BaseCommand>();
-    public static OKB p;
+    public static ForumBridge p;
     public static Permission perms;
     public static HashMap<String, String> worldUpdate = new HashMap<String,String>();
     //hashmap for player sync. Key is player name and entry is the account name.
@@ -56,72 +56,72 @@ public class OKB extends JavaPlugin
         version = this.getDescription().getVersion();
         authors = this.getDescription().getAuthors();
         PluginManager pm = this.getServer().getPluginManager();
-        OKLogger.initialize(this.getLogger());
+        ForumBridgeLogger.initialize(this.getLogger());
         
-        OKLogger.info("Initializing Vault");
+        ForumBridgeLogger.info("Initializing Vault");
         if (!setupPermissions())
         {
-            OKLogger.info("Permissions plugin not found, shutting down...");
+            ForumBridgeLogger.info("Permissions plugin not found, shutting down...");
             pm.disablePlugin(this);
         }
         else
         {
         	//Load the configuration
-        	OKLogger.info("Initializing configuration.");
+        	ForumBridgeLogger.info("Initializing configuration.");
         	
-            new OKConfig(this);
+            new ForumBridgeConfig(this);
             
             //Loading databases
-            OKLogger.info("Loading the internal database");
-            OKBDb = new OKBInternalDB(this);
+            ForumBridgeLogger.info("Loading the internal database");
+            ForumBridgeDb = new ForumBridgeInternalDB(this);
             
             //MySQL connect
-            OKLogger.info("Trying to connect to the external database");
+            ForumBridgeLogger.info("Trying to connect to the external database");
             try
     		{
-    			new OKBWebsiteDB(this);
+    			new ForumBridgeWebsiteDB(this);
     		}
     		catch (SQLException e2)
     		{
-    			OKLogger.error(e2.getMessage());
+    			ForumBridgeLogger.error(e2.getMessage());
     			pm.disablePlugin(this);
     		}
             
             if (this.isEnabled())
             {
             	 //Load the corresponding link file along with metrics
-                OKLogger.info("Loading website link");
+                ForumBridgeLogger.info("Loading website link");
                 try
                 {
                     File dir = new File(this.getDataFolder() + "/links");
                     if (!dir.exists())
                     {
-                    	OKLogger.info("Links folder not found. Creating it!");
+                    	ForumBridgeLogger.info("Links folder not found. Creating it!");
                     	dir.mkdirs();
                     	DownloadLinks.download(dir);
                     }
-                    ClassLoader loader = new URLClassLoader(new URL[] { dir.toURI().toURL() }, OKBSync.class.getClassLoader());
+                    ClassLoader loader = new URLClassLoader(new URL[] { dir.toURI().toURL() }, ForumBridgeSync.class.getClassLoader());
                     for (File file : dir.listFiles()) {
                         String name = file.getName().substring(0, file.getName().lastIndexOf("."));
-                        if (name.toLowerCase().equals(OKConfig.linkName.toLowerCase()))
+                        if (name.toLowerCase().equals(ForumBridgeConfig.linkName.toLowerCase()))
                         {
                             
                             Class<?> clazz = loader.loadClass(name);
                             Object object = clazz.newInstance();
-                            if (object instanceof OKBSync) {
-                                sync = (OKBSync) object;
-                                OKLogger.info("Website link " + name + " loaded!");
+                            if (object instanceof ForumBridgeSync) {
+                                sync = (ForumBridgeSync) object;
+                                ForumBridgeLogger.info("Website link " + name + " loaded!");
                             }
                             else
                             {
-                                OKLogger.error("The class file for " + name + " looks invalid. Is it downloaded correctly?");
+                                ForumBridgeLogger.error("The class file for " + name + " loForumBridges invalid. Is it downloaded correctly?");
                                 pm.disablePlugin(this);
                             }
                         }
                     }
                     if (sync == null)
                     {
-                    	OKLogger.error("Website link " + name + " not found. Be sure it is located in the plugins/OKB3/links folder!");
+                    	ForumBridgeLogger.error("Website link " + name + " not found. Be sure it is located in the plugins/ForumBridge/links folder!");
                         pm.disablePlugin(this);
                     }
                     else
@@ -135,22 +135,22 @@ public class OKB extends JavaPlugin
                 }
                 catch (MalformedURLException e)
                 {
-                    OKLogger.info("A error occured while loading the forum link class. Error code 1.");
+                    ForumBridgeLogger.info("A error occured while loading the forum link class. Error code 1.");
                     pm.disablePlugin(this);
                 }
                 catch (InstantiationException e)
                 {
-                    OKLogger.info("A error occured while loading the forum link class. Error code 2");
+                    ForumBridgeLogger.info("A error occured while loading the forum link class. Error code 2");
                     pm.disablePlugin(this);
                 }
                 catch (IllegalAccessException e)
                 {
-                    OKLogger.info("A error occured while loading the forum link class. Error code 3");
+                    ForumBridgeLogger.info("A error occured while loading the forum link class. Error code 3");
                     pm.disablePlugin(this);
                 }
                 catch (ClassNotFoundException e1)
                 {
-                    OKLogger.info("Forum link class not found, shutting down.... Check if the configuration.forum configuration node is configurated correctly.");
+                    ForumBridgeLogger.info("Forum link class not found, shutting down.... Check if the configuration.forum configuration node is configurated correctly.");
                     pm.disablePlugin(this);
                 }
                 catch (IOException e)
@@ -164,12 +164,12 @@ public class OKB extends JavaPlugin
          
             if (this.isEnabled())
             {
-            	pm.registerEvents(new OKBEvents(), this);
-                OKLogger.info("Loading commands.");
+            	pm.registerEvents(new ForumBridgeEvents(), this);
+                ForumBridgeLogger.info("Loading commands.");
                 
                 setupCommands();
                 
-                OKLogger.info("Loading complete!");
+                ForumBridgeLogger.info("Loading complete!");
             }
             
         }
@@ -185,11 +185,11 @@ public class OKB extends JavaPlugin
     
     public void onDisable()
     {
-        OKLogger.info("Closing remote MySQL connection");
-    	OKBWebsiteDB.dbm.close();
+        ForumBridgeLogger.info("Closing remote MySQL connection");
+    	ForumBridgeWebsiteDB.dbm.close();
     	
-    	OKLogger.info("Closing local DB connection");
-    	OKBDb.close();
+    	ForumBridgeLogger.info("Closing local DB connection");
+    	ForumBridgeDb.close();
     	
     }
     
@@ -213,11 +213,11 @@ public class OKB extends JavaPlugin
     {
         List<String> parameters = new ArrayList<String>(Arrays.asList(args));
         String commandName = cmd.getName();
-        for (BaseCommand OKBCommand : this.commands)
+        for (BaseCommand ForumBridgeCommand : this.commands)
         {
-            if (OKBCommand.getCommands().contains(commandName))
+            if (ForumBridgeCommand.getCommands().contains(commandName))
             {
-                OKBCommand.execute(sender, parameters);
+                ForumBridgeCommand.execute(sender, parameters);
                 return true;
             }
         }

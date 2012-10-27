@@ -4,12 +4,12 @@ import java.sql.SQLException;
 
 import com.favorlock.ForumBridge.extras.lib.PatPeter.SQLibrary.MySQL;
 
-public class OKBWebsiteDB
+public class ForumBridgeWebsiteDB
 {
 	public static MySQL dbm;
-	public OKBWebsiteDB(OKB thePlugin) throws SQLException
+	public ForumBridgeWebsiteDB(ForumBridge thePlugin) throws SQLException
 	{
-		dbm = new MySQL(thePlugin.getLogger(), "OKB", OKConfig.databaseHost, OKConfig.databasePort, OKConfig.databaseDB, OKConfig.databaseUser, OKConfig.databasePassword);
+		dbm = new MySQL(thePlugin.getLogger(), "ForumBridge", ForumBridgeConfig.databaseHost, ForumBridgeConfig.databasePort, ForumBridgeConfig.databaseDB, ForumBridgeConfig.databaseUser, ForumBridgeConfig.databasePassword);
 		dbm.open();
 		if (!dbm.checkConnection())
 		{

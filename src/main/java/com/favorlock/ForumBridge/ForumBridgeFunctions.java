@@ -7,11 +7,11 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-public class OKFunctions
+public class ForumBridgeFunctions
 {
     public static boolean accountExist(String username, String password)
     {
-        return OKB.sync.accountExist(username,password);
+        return ForumBridge.sync.accountExist(username,password);
     }
     
     /**
@@ -22,40 +22,40 @@ public class OKFunctions
     public static List<Integer> getGroupList(String playerName)
     {
         List<Integer> returnList = null;
-        if (OKB.OKBDb.existUser(playerName))
+        if (ForumBridge.ForumBridgeDb.existUser(playerName))
         {
-           returnList = OKB.sync.getGroup(OKB.OKBDb.getUser(playerName));
+           returnList = ForumBridge.sync.getGroup(ForumBridge.ForumBridgeDb.getUser(playerName));
         }
         return returnList;
     }
     
     public static synchronized boolean hasAccount(String playerName)
     {
-        return OKB.OKBDb.existUser(playerName); 
+        return ForumBridge.ForumBridgeDb.existUser(playerName); 
     }
     
     public static synchronized void banUser(String playerName, String reason)
     {
-    	if (OKB.OKBDb.existUser(playerName))
+    	if (ForumBridge.ForumBridgeDb.existUser(playerName))
     	{
-    		OKB.OKBDb.banUser(playerName, reason);
-    		OKB.sync.changeRank(OKB.OKBDb.getUser(playerName), OKConfig.bannedGroupID);
+    		ForumBridge.ForumBridgeDb.banUser(playerName, reason);
+    		ForumBridge.sync.changeRank(ForumBridge.ForumBridgeDb.getUser(playerName), ForumBridgeConfig.bannedGroupID);
     		
     		Player p = Bukkit.getPlayer(playerName);
     		
     		if (p != null)
     		{
-    			p.kickPlayer(OKConfig.bannedMsg + " : " + reason);
+    			p.kickPlayer(ForumBridgeConfig.bannedMsg + " : " + reason);
     		}
     	}
     }
 
     public static synchronized void unbanUser(String playerName)
     {
-    	if (OKB.OKBDb.existUser(playerName) && OKB.OKBDb.isBannedUser(playerName))
+    	if (ForumBridge.ForumBridgeDb.existUser(playerName) && ForumBridge.ForumBridgeDb.isBannedUser(playerName))
     	{
-    		OKB.OKBDb.unbanUser(playerName);
-    		OKB.sync.changeRank(OKB.OKBDb.getUser(playerName), OKConfig.unbannedGroupID);
+    		ForumBridge.ForumBridgeDb.unbanUser(playerName);
+    		ForumBridge.sync.changeRank(ForumBridge.ForumBridgeDb.getUser(playerName), ForumBridgeConfig.unbannedGroupID);
     	}
     }
     
@@ -63,7 +63,7 @@ public class OKFunctions
     {
     	if (hasAccount(playerName))
     	{
-    		OKB.sync.changeRank(OKB.OKBDb.getUser(playerName), rankID);
+    		ForumBridge.sync.changeRank(ForumBridge.ForumBridgeDb.getUser(playerName), rankID);
     	}
     }
     /**
@@ -74,21 +74,21 @@ public class OKFunctions
      */
     public static synchronized boolean syncPlayer(String playerName, String worldName)
     {
-        if (!OKConfig.groupList.containsKey(worldName))
+        if (!ForumBridgeConfig.groupList.containsKey(worldName))
         {
             worldName = "default";
         }
         if (hasAccount(playerName))
         {
-            List<Integer> groupList = OKB.sync.getGroup(OKB.OKBDb.getUser(playerName));
+            List<Integer> groupList = ForumBridge.sync.getGroup(ForumBridge.ForumBridgeDb.getUser(playerName));
             Iterator<Integer> groupIterator = groupList.iterator();
             //We reset groups
-            String[] permGroupList = OKB.perms.getPlayerGroups(OKB.p.getServer().getPlayer(playerName));
+            String[] permGroupList = ForumBridge.perms.getPlayerGroups(ForumBridge.p.getServer().getPlayer(playerName));
             for (int i = 0; i < permGroupList.length; i++)
             {
         	modifyGroup(true, playerName, permGroupList[i], worldName);
             }
-            HashMap<Integer, String> configurationGroup = OKConfig.groupList.get(worldName);
+            HashMap<Integer, String> configurationGroup = ForumBridgeConfig.groupList.get(worldName);
             
             while (groupIterator.hasNext())
             {
@@ -112,11 +112,11 @@ public class OKFunctions
     		{
     				if (worldName.equals("default"))
     			    {
-    			        OKB.perms.playerRemoveGroup(OKB.p.getServer().getPlayer(playerName).getWorld(), OKB.p.getServer().getPlayer(playerName).getName(), groupName);
+    			        ForumBridge.perms.playerRemoveGroup(ForumBridge.p.getServer().getPlayer(playerName).getWorld(), ForumBridge.p.getServer().getPlayer(playerName).getName(), groupName);
     			    }
     			    else
     			    {
-    			        OKB.perms.playerRemoveGroup(worldName, OKB.p.getServer().getPlayer(playerName).getName(), groupName);
+    			        ForumBridge.perms.playerRemoveGroup(worldName, ForumBridge.p.getServer().getPlayer(playerName).getName(), groupName);
     			    }
     		    
     		}
@@ -124,11 +124,11 @@ public class OKFunctions
     		{
     		    if (worldName.equals("default"))
     		    {
-    		    	OKB.perms.playerAddGroup(OKB.p.getServer().getPlayer(playerName), groupName);
+    		    	ForumBridge.perms.playerAddGroup(ForumBridge.p.getServer().getPlayer(playerName), groupName);
     		    }
     		    else
     		    {
-    		    	OKB.perms.playerAddGroup(worldName, playerName, groupName);
+    		    	ForumBridge.perms.playerAddGroup(worldName, playerName, groupName);
     		    }
     		}
     	}

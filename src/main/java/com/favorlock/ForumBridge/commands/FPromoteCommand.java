@@ -6,8 +6,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import com.favorlock.ForumBridge.OKConfig;
-import com.favorlock.ForumBridge.OKFunctions;
+import com.favorlock.ForumBridge.ForumBridgeConfig;
+import com.favorlock.ForumBridge.ForumBridgeFunctions;
 
 public class FPromoteCommand extends BaseCommand
 {
@@ -22,22 +22,22 @@ public class FPromoteCommand extends BaseCommand
 	
 	public void perform()
 	{
-    	if (!OKConfig.useSecondaryGroups)
+    	if (!ForumBridgeConfig.useSecondaryGroups)
     	{
     		Player player = Bukkit.getPlayer(this.parameters.get(0));
-			if (player != null || OKFunctions.hasAccount(this.parameters.get(0)))
+			if (player != null || ForumBridgeFunctions.hasAccount(this.parameters.get(0)))
     		{
 				String playerName = this.parameters.get(0);
 				if (player != null)
 				{
 					playerName = player.getName();
 				}
-    			List<Integer> groupList = OKFunctions.getGroupList(playerName);
+    			List<Integer> groupList = ForumBridgeFunctions.getGroupList(playerName);
     			int position = -1;
     			
-    			for (int i = 0; i < OKConfig.promotionList.length; i++)
+    			for (int i = 0; i < ForumBridgeConfig.promotionList.length; i++)
     			{
-    				if (groupList.get(0) == OKConfig.promotionList[i])
+    				if (groupList.get(0) == ForumBridgeConfig.promotionList[i])
     				{
     					position = i;
     				}
@@ -45,13 +45,13 @@ public class FPromoteCommand extends BaseCommand
     			
     			if (position != -1)
     			{
-    				if (position != (OKConfig.promotionList.length - 1))
+    				if (position != (ForumBridgeConfig.promotionList.length - 1))
     				{
-    					OKFunctions.setPlayerRank(playerName, OKConfig.promotionList[position + 1]);
-    					String rank = OKConfig.promotionList[position + 1] + "";
-    					if (OKConfig.rankIdentifier.containsKey(OKConfig.promotionList[position + 1]))
+    					ForumBridgeFunctions.setPlayerRank(playerName, ForumBridgeConfig.promotionList[position + 1]);
+    					String rank = ForumBridgeConfig.promotionList[position + 1] + "";
+    					if (ForumBridgeConfig.rankIdentifier.containsKey(ForumBridgeConfig.promotionList[position + 1]))
     					{
-    						rank = OKConfig.rankIdentifier.get(OKConfig.promotionList[position + 1]);
+    						rank = ForumBridgeConfig.rankIdentifier.get(ForumBridgeConfig.promotionList[position + 1]);
     					}
     					sendMessage(ChatColor.GREEN + "User promoted to rank " + rank + "!");
     				}

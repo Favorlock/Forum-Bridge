@@ -10,12 +10,12 @@ import org.bukkit.event.Event;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
-public class OKRunnable implements Runnable
+public class ForumBridgeRunnable implements Runnable
 {
-    public static OKB plugin;
+    public static ForumBridge plugin;
     Event event;
     
-    public OKRunnable(OKB instance, Event event)
+    public ForumBridgeRunnable(ForumBridge instance, Event event)
     {
         plugin = instance;
         this.event = event;
@@ -27,44 +27,44 @@ public class OKRunnable implements Runnable
         {
             PlayerJoinEvent joinevent = (PlayerJoinEvent) event;
             Player thePlayer = joinevent.getPlayer();
-            if (!OKB.OKBDb.isBannedUser(thePlayer.getName()))
+            if (!ForumBridge.ForumBridgeDb.isBannedUser(thePlayer.getName()))
             {
-                if (OKConfig.isWhitelist)
+                if (ForumBridgeConfig.isWhitelist)
                 {
-                    if (OKFunctions.hasAccount(thePlayer.getName()))
+                    if (ForumBridgeFunctions.hasAccount(thePlayer.getName()))
                     {
-                        List<Integer> groupList = OKFunctions.getGroupList(thePlayer.getName());
+                        List<Integer> groupList = ForumBridgeFunctions.getGroupList(thePlayer.getName());
                         Iterator<Integer> iterator = groupList.iterator();
                         
                         boolean isWhitelist = false;
                         
                         while(iterator.hasNext())
                         {
-                            if (OKConfig.whitelist.contains(iterator.next()))
+                            if (ForumBridgeConfig.whitelist.contains(iterator.next()))
                             {
                                 isWhitelist = true;
                             }
                         }
                         if (!isWhitelist)
                         {
-                            thePlayer.kickPlayer(OKConfig.whitelistKickMsg);;
+                            thePlayer.kickPlayer(ForumBridgeConfig.whitelistKickMsg);;
                         }
                     }
                     else
                     {
                         //We give a grace period of 30 secs to sync
-                    	OKB.p.getLogger().info("Let's wait 30 seconds");
-                        OKB.p.getServer().getScheduler().scheduleAsyncDelayedTask(OKB.p, new OKBWhitelistWait(thePlayer), 600L);
+                    	ForumBridge.p.getLogger().info("Let's wait 30 seconds");
+                        ForumBridge.p.getServer().getScheduler().scheduleAsyncDelayedTask(ForumBridge.p, new ForumBridgeWhitelistWait(thePlayer), 600L);
                     }
                 }
                 
-                OKB.worldUpdate.put(thePlayer.getName(), thePlayer.getWorld().getName());
+                ForumBridge.worldUpdate.put(thePlayer.getName(), thePlayer.getWorld().getName());
                 //Everything done, we sync the player!
-                OKFunctions.syncPlayer(thePlayer.getName(), thePlayer.getWorld().getName());
+                ForumBridgeFunctions.syncPlayer(thePlayer.getName(), thePlayer.getWorld().getName());
             }
             else
             {
-                thePlayer.kickPlayer(OKConfig.bannedMsg + " : " + OKB.OKBDb.getBanReason(thePlayer.getName()));
+                thePlayer.kickPlayer(ForumBridgeConfig.bannedMsg + " : " + ForumBridge.ForumBridgeDb.getBanReason(thePlayer.getName()));
             }
         }
         else if (this.event instanceof PlayerTeleportEvent)
@@ -76,9 +76,9 @@ public class OKRunnable implements Runnable
 			}
             Player thePlayer = ((PlayerTeleportEvent)this.event).getPlayer();
             boolean update = false;
-            if (OKB.worldUpdate.containsKey(thePlayer.getName()))
+            if (ForumBridge.worldUpdate.containsKey(thePlayer.getName()))
             {
-            	if (!OKB.worldUpdate.get(thePlayer.getName()).equals(thePlayer.getWorld().getName())) {
+            	if (!ForumBridge.worldUpdate.get(thePlayer.getName()).equals(thePlayer.getWorld().getName())) {
             		update = true;
             	}
             } else {
@@ -86,8 +86,8 @@ public class OKRunnable implements Runnable
             }
             
             if (update) {
-            	OKB.worldUpdate.put(thePlayer.getName(), thePlayer.getWorld().getName());
-        		OKFunctions.syncPlayer(thePlayer.getName(), thePlayer.getWorld().getName());
+            	ForumBridge.worldUpdate.put(thePlayer.getName(), thePlayer.getWorld().getName());
+        		ForumBridgeFunctions.syncPlayer(thePlayer.getName(), thePlayer.getWorld().getName());
             }
         }
     }

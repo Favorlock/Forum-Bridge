@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.favorlock.ForumBridge.extras.Tools;
-import com.favorlock.ForumBridge.OKBSync;
-import com.favorlock.ForumBridge.OKBWebsiteDB;
-import com.favorlock.ForumBridge.OKConfig;
+import com.favorlock.ForumBridge.ForumBridgeSync;
+import com.favorlock.ForumBridge.ForumBridgeWebsiteDB;
+import com.favorlock.ForumBridge.ForumBridgeConfig;
 
 
-public class IPB implements OKBSync
+public class IPB implements ForumBridgeSync
 {
 
 	public IPB()
@@ -25,7 +25,7 @@ public class IPB implements OKBSync
 		String encpass = "nope";
 		try
         {
-            ResultSet rs = OKBWebsiteDB.dbm.prepare("SELECT members_pass_hash,members_pass_salt FROM " + OKConfig.tablePrefix + "members WHERE members_l_username = '" + username + "'").executeQuery();
+            ResultSet rs = ForumBridgeWebsiteDB.dbm.prepare("SELECT members_pass_hash,members_pass_salt FROM " + ForumBridgeConfig.tablePrefix + "members WHERE members_l_username = '" + username + "'").executeQuery();
             if (rs.next())
             {
                 do
@@ -56,7 +56,7 @@ public class IPB implements OKBSync
 	{
 		try
         {
-            OKBWebsiteDB.dbm.prepare("UPDATE " + OKConfig.tablePrefix + "members SET member_group_id=" + forumGroupId + " WHERE members_l_username = '" + username + "'").executeUpdate();
+            ForumBridgeWebsiteDB.dbm.prepare("UPDATE " + ForumBridgeConfig.tablePrefix + "members SET member_group_id=" + forumGroupId + " WHERE members_l_username = '" + username + "'").executeUpdate();
         }
         catch (SQLException e)
         {
@@ -85,7 +85,7 @@ public class IPB implements OKBSync
 		List<Integer> group = new ArrayList<Integer>();
 		try
 		{
-			ResultSet rs = OKBWebsiteDB.dbm.prepare("SELECT member_group_id, mgroup_others FROM " + OKConfig.tablePrefix + "members WHERE members_l_username = '" + username + "'").executeQuery();
+			ResultSet rs = ForumBridgeWebsiteDB.dbm.prepare("SELECT member_group_id, mgroup_others FROM " + ForumBridgeConfig.tablePrefix + "members WHERE members_l_username = '" + username + "'").executeQuery();
 			if (rs.next())
 			{
 				do

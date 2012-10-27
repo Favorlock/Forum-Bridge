@@ -2,7 +2,7 @@ package com.favorlock.ForumBridge;
 
 import java.util.List;
 
-public interface OKBSync
+public interface ForumBridgeSync
 {
 	
 	String fieldName = "";

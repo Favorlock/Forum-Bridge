@@ -1,6 +1,6 @@
 package com.favorlock.ForumBridge.commands;
 
-import com.favorlock.ForumBridge.OKB;
+import com.favorlock.ForumBridge.ForumBridge;
 
 public class BbbCommand extends BaseCommand
 {
@@ -9,17 +9,17 @@ public class BbbCommand extends BaseCommand
     {
         this.command.add("bbb");
         this.commandOnly = false;
-        this.helpDescription = "Shows OKB3 help";
+        this.helpDescription = "Shows ForumBridge help";
         this.senderMustBePlayer = false;
     }
     
     public void perform()
     {
-        for (BaseCommand OKBCommand : OKB.p.commands)
+        for (BaseCommand ForumBridgeCommand : ForumBridge.p.commands)
         {
-            if (OKBCommand.hasPermission(sender))
+            if (ForumBridgeCommand.hasPermission(sender))
             {
-                sendMessage(OKBCommand.getUseageTemplate(true));
+                sendMessage(ForumBridgeCommand.getUseageTemplate(true));
             }
         }
     }

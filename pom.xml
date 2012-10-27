@@ -4,8 +4,8 @@
 	<groupId>com.favorlock</groupId>
 	<version>1.0.0-SNAPSHOT</version>
 
-	<name>OKB3</name>
-	<url>https://github.com/greatman/OKB</url>
+	<name>ForumBridge</name>
+	<url>https://github.com/greatman/ForumBridge</url>
 	<description>Sync Your Forums Users To Their In-Game Account</description>
 
 	<!-- Source code -->

@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import com.favorlock.ForumBridge.OKFunctions;
+import com.favorlock.ForumBridge.ForumBridgeFunctions;
 
 public class FsyncCommand extends BaseCommand
 {
@@ -21,15 +21,15 @@ public class FsyncCommand extends BaseCommand
     public void perform()
     {
     	Player player = Bukkit.getPlayer(this.parameters.get(0));
-		if (player != null || OKFunctions.hasAccount(this.parameters.get(0)))
+		if (player != null || ForumBridgeFunctions.hasAccount(this.parameters.get(0)))
 		{
 			if (player != null)
 			{
-				OKFunctions.syncPlayer(player.getName(), player.getWorld().getName());
+				ForumBridgeFunctions.syncPlayer(player.getName(), player.getWorld().getName());
 			}
 			else
 			{
-				OKFunctions.syncPlayer(this.parameters.get(0), "default");
+				ForumBridgeFunctions.syncPlayer(this.parameters.get(0), "default");
 			}
 			sendMessage("Player force-synced!");
 	    }
