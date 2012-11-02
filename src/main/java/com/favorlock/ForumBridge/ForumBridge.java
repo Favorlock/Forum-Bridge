@@ -131,7 +131,6 @@ public class ForumBridge extends JavaPlugin
                         metrics.start();
                     }
                     
-                
                 }
                 catch (MalformedURLException e)
                 {
@@ -189,8 +188,7 @@ public class ForumBridge extends JavaPlugin
     	ForumBridgeWebsiteDB.dbm.close();
     	
     	ForumBridgeLogger.info("Closing local DB connection");
-    	ForumBridgeDb.close();
-    	
+    	ForumBridgeDb.close();	
     }
     
     private void setupCommands()

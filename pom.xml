@@ -5,7 +5,7 @@
 	<version>1.0.0-SNAPSHOT</version>
 
 	<name>ForumBridge</name>
-	<url>https://github.com/greatman/ForumBridge</url>
+	<url>https://github.com/Favorlock/ForumBridge</url>
 	<description>Sync Your Forums Users To Their In-Game Account</description>
 
 	<!-- Source code -->
@@ -17,7 +17,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<bukkitVersion>1.3.2-R2.0</bukkitVersion>
+		<bukkitVersion>1.4.2-R0.1</bukkitVersion>
 	</properties>
 
 	<repositories>
