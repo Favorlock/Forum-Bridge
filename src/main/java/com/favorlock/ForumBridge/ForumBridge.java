@@ -13,6 +13,7 @@ import java.net.URLClassLoader;
 
 import net.milkbowl.vault.permission.Permission;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.PluginManager;
@@ -189,6 +190,12 @@ public class ForumBridge extends JavaPlugin
     	
     	ForumBridgeLogger.info("Closing local DB connection");
     	ForumBridgeDb.close();	
+    }
+    
+    public void disable() 
+    {
+    	Bukkit.getServer().getPluginManager().disablePlugin(this);
+    	Bukkit.getServer().getScheduler().cancelTask(ForumBridgeWebsiteDB.taskID);
     }
     
     private void setupCommands()

@@ -7,6 +7,7 @@ import com.favorlock.ForumBridge.extras.lib.PatPeter.SQLibrary.MySQL;
 public class ForumBridgeWebsiteDB
 {
 	public static MySQL dbm;
+	public static int taskID;
 	public ForumBridgeWebsiteDB(ForumBridge thePlugin) throws SQLException
 	{
 		dbm = new MySQL(thePlugin.getLogger(), "ForumBridge", ForumBridgeConfig.databaseHost, ForumBridgeConfig.databasePort, ForumBridgeConfig.databaseDB, ForumBridgeConfig.databaseUser, ForumBridgeConfig.databasePassword);
@@ -15,7 +16,7 @@ public class ForumBridgeWebsiteDB
 		{
 			throw new SQLException("Impossible to connect to MySQL database.");
 		}
-		thePlugin.getServer().getScheduler().scheduleSyncRepeatingTask(thePlugin, new Runnable()
+		taskID = thePlugin.getServer().getScheduler().scheduleSyncRepeatingTask(thePlugin, new Runnable()
         {
             public void run()
             {

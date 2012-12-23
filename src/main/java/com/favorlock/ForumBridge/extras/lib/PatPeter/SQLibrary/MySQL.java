@@ -15,13 +15,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Logger;
 
+import org.bukkit.Bukkit;
+
+import com.favorlock.ForumBridge.ForumBridge;
+
 public class MySQL extends Database {
 	private String hostname = "localhost";
 	private String portnmbr = "3306";
 	private String username = "minecraft";
 	private String password = "";
 	private String database = "minecraft";
-	
+		
 	public MySQL(Logger log,
 				 String prefix,
 				 String hostname,
@@ -50,6 +54,11 @@ public class MySQL extends Database {
 	
 	@Override
 	public Connection open() {
+        this.open(true);
+		return null;
+	}
+	
+	public Connection open(boolean showError) {
 		if (initialize()) {
 			String url = "";
 		    try {
@@ -58,8 +67,10 @@ public class MySQL extends Database {
 				this.connection = DriverManager.getConnection(url, this.username, this.password);
 				
 		    } catch (SQLException e) {
+		    	if(showError) {		    		
 		    	this.writeError(url,true);
 		    	this.writeError("Could not be resolved because of an SQL Exception: " + e.getMessage() + ".", true);
+		    	}
 		    }
 		}
 		return null;
@@ -99,8 +110,26 @@ public class MySQL extends Database {
 		try {
 			//connection = open();
 			//if (checkConnection())
-		    statement = this.connection.createStatement();
-		    result = statement.executeQuery("SELECT CURTIME()");
+		    for (int counter = 0; counter < 5 && result == null; counter++) {
+		    	try {
+		    		statement = this.connection.createStatement();
+			    	result = statement.executeQuery("SELECT CURTIME()");
+		    	} catch (SQLException e) {
+		    		if (counter == 4) {
+		    			ForumBridge.p.disable();
+		    			throw e;
+		    		}
+		    		else {
+			    		if (e.getMessage().contains("connection closed")) {
+			    			this.writeError("Error in SQL query. Attempting to reestablish connection. Attempt #" 
+			    							+ Integer.toString(counter + 1) + "!", false);
+			    			this.open(false);
+			    		} else {
+			    			throw e;
+			    		}
+		    		}		    		
+		    	}
+		    }
 		    
 		    switch (this.getStatement(query)) {
 			    case SELECT:
