@@ -101,7 +101,8 @@ public class ForumBridge extends JavaPlugin
                     	dir.mkdirs();
                     	DownloadLinks.download(dir);
                     }
-                    ClassLoader loader = new URLClassLoader(new URL[] { dir.toURI().toURL() }, ForumBridgeSync.class.getClassLoader());
+                    @SuppressWarnings("resource")
+					ClassLoader loader = new URLClassLoader(new URL[] { dir.toURI().toURL() }, ForumBridgeSync.class.getClassLoader());
                     for (File file : dir.listFiles()) {
                         String name = file.getName().substring(0, file.getName().lastIndexOf("."));
                         if (name.toLowerCase().equals(ForumBridgeConfig.linkName.toLowerCase()))

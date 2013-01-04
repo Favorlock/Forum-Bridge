@@ -1,10 +1,8 @@
 package com.favorlock.ForumBridge;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -54,7 +52,7 @@ public class ForumBridgeRunnable implements Runnable
                     {
                         //We give a grace period of 30 secs to sync
                     	ForumBridge.p.getLogger().info("Let's wait 30 seconds");
-                        ForumBridge.p.getServer().getScheduler().scheduleAsyncDelayedTask(ForumBridge.p, new ForumBridgeWhitelistWait(thePlayer), 600L);
+                        ForumBridge.p.getServer().getScheduler().scheduleSyncDelayedTask(ForumBridge.p, new ForumBridgeWhitelistWait(thePlayer), 600L);
                     }
                 }
                 

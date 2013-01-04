@@ -15,8 +15,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Logger;
 
-import org.bukkit.Bukkit;
-
 import com.favorlock.ForumBridge.ForumBridge;
 
 public class MySQL extends Database {
