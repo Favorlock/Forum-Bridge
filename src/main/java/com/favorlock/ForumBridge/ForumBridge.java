@@ -149,7 +149,7 @@ public class ForumBridge extends JavaPlugin
                     ForumBridgeLogger.info("A error occured while loading the forum link class. Error code 3");
                     pm.disablePlugin(this);
                 }
-                catch (ClassNotFoundException e1)
+                catch (ClassNotFoundException e)
                 {
                     ForumBridgeLogger.info("Forum link class not found, shutting down.... Check if the configuration.forum configuration node is configurated correctly.");
                     pm.disablePlugin(this);
