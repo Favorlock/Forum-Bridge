@@ -12,12 +12,12 @@ public class ForumBridgeEvents implements Listener
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerJoin(PlayerJoinEvent event)
     {
-        ForumBridge.p.getServer().getScheduler().scheduleSyncDelayedTask(ForumBridge.p, new ForumBridgeRunnable(ForumBridge.p, event), 0);
+        ForumBridge.p.getServer().getScheduler().runTaskAsynchronously(ForumBridge.p, new ForumBridgeRunnable(ForumBridge.p, event));
     }
     
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerTeleport(PlayerTeleportEvent event)
     {
-	ForumBridge.p.getServer().getScheduler().scheduleSyncDelayedTask(ForumBridge.p, new ForumBridgeRunnable(ForumBridge.p, event), 0);
+    	ForumBridge.p.getServer().getScheduler().runTaskAsynchronously(ForumBridge.p, new ForumBridgeRunnable(ForumBridge.p, event));
     }
 }

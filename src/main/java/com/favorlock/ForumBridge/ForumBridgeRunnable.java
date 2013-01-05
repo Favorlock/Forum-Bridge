@@ -52,7 +52,7 @@ public class ForumBridgeRunnable implements Runnable
                     {
                         //We give a grace period of 30 secs to sync
                     	ForumBridge.p.getLogger().info("Let's wait 30 seconds");
-                        ForumBridge.p.getServer().getScheduler().scheduleSyncDelayedTask(ForumBridge.p, new ForumBridgeWhitelistWait(thePlayer), 600L);
+                        ForumBridge.p.getServer().getScheduler().runTaskLaterAsynchronously(ForumBridge.p, new ForumBridgeWhitelistWait(thePlayer), 600L);
                     }
                 }
                 
