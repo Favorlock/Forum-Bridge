@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.favorlock</groupId>
-	<version>1.0.4</version>
+	<version>1.0.4b</version>
 
 	<name>ForumBridge</name>
 	<url>https://github.com/Favorlock/ForumBridge</url>
@@ -25,6 +25,10 @@
 			<id>bukkit-repo</id>
 			<url>http://repo.bukkit.org/content/groups/public/</url>
 		</repository>
+	<repository>
+		<id>vault-repo</id>
+		<url>http://ci.herocraftonline.com/plugin/repository/everything</url>
+	</repository>
 	</repositories>
 
 	<dependencies>
@@ -35,13 +39,11 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-		<dependency>
-			<groupId>net.milkbowl.vault</groupId>
-			<artifactId>Vault</artifactId>
-			<version>1.2.22</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/Vault.jar</systemPath>
-		</dependency>
+  	<dependency>
+		<groupId>net.milkbowl.vault</groupId>
+		<artifactId>Vault</artifactId>
+		<version>1.2.22-SNAPSHOT</version>
+	</dependency>
 	</dependencies>
 
 	<build>

@@ -83,9 +83,11 @@ public class ForumBridgeRunnable implements Runnable
             	update = true;
             }
             
-            if (update) {
-            	ForumBridge.worldUpdate.put(thePlayer.getName(), thePlayer.getWorld().getName());
-        		ForumBridgeFunctions.syncPlayer(thePlayer.getName(), thePlayer.getWorld().getName());
+            if (ForumBridge.p.getServer().getPlayer(thePlayer.getName()) != null) {
+            	if (update) {
+            		ForumBridge.worldUpdate.put(thePlayer.getName(), thePlayer.getWorld().getName());
+            		ForumBridgeFunctions.syncPlayer(thePlayer.getName(), thePlayer.getWorld().getName());
+            	}
             }
         }
     }
