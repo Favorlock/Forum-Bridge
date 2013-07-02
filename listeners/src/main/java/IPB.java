@@ -51,13 +51,13 @@ public class IPB implements ForumBridgeSync {
 
 	@Override
 	public void ban(String username, int forumGroupId) {
-		// TODO use com.favorlock.ForumBridge.Listeners.IPB ban system
+		// TODO use com.com.favorlock.com.favorlock.ForumBridge.Listeners.IPB ban system
 		changeRank(username, forumGroupId);
 	}
 
 	@Override
 	public void unban(String username, int forumGroupId) {
-		// TODO use com.favorlock.ForumBridge.Listeners.IPB ban system
+		// TODO use com.com.favorlock.com.favorlock.ForumBridge.Listeners.IPB ban system
 		changeRank(username, forumGroupId);
 	}
 

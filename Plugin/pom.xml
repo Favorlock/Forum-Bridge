@@ -6,17 +6,40 @@
 
     <parent>
         <artifactId>Forum-Bridge</artifactId>
-        <groupId>com.com.favorlock</groupId>
+        <groupId>com.favorlock</groupId>
         <version>1.0.4b</version>
     </parent>
 
-    <artifactId>Listeners</artifactId>
+    <artifactId>Plugin</artifactId>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <bukkitVersion>1.4.6-R0.3</bukkitVersion>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>bukkit-repo</id>
+            <url>http://repo.bukkit.org/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>vault-repo</id>
+            <url>http://ci.herocraftonline.com/plugin/repository/everything</url>
+        </repository>
+    </repositories>
 
     <dependencies>
         <dependency>
-            <groupId>com.com.favorlock</groupId>
-            <artifactId>Forum-Bridge</artifactId>
-            <version>1.0.4b</version>
+            <groupId>org.bukkit</groupId>
+            <artifactId>craftbukkit</artifactId>
+            <version>${bukkitVersion}</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.milkbowl.vault</groupId>
+            <artifactId>Vault</artifactId>
+            <version>1.2.22-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
