@@ -1,14 +1,13 @@
 package com.favorlock.ForumBridge.commands;
 
-import java.util.Iterator;
-import java.util.Map.Entry;
-
+import com.favorlock.ForumBridge.ForumBridgeConfig;
+import com.favorlock.ForumBridge.ForumBridgeFunctions;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import com.favorlock.ForumBridge.ForumBridgeConfig;
-import com.favorlock.ForumBridge.ForumBridgeFunctions;
+import java.util.Iterator;
+import java.util.Map.Entry;
 
 public class FRankCommand extends BaseCommand {
 

@@ -1,14 +1,12 @@
 package com.favorlock.ForumBridge.commands;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
+import com.favorlock.ForumBridge.extras.TextUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.favorlock.ForumBridge.extras.TextUtil;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BaseCommand {
 

@@ -1,9 +1,9 @@
 package com.favorlock.ForumBridge;
 
+import com.favorlock.ForumBridge.extras.lib.PatPeter.SQLibrary.SQLite;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import com.favorlock.ForumBridge.extras.lib.PatPeter.SQLibrary.SQLite;
 
 public class ForumBridgeInternalDB {
 	SQLite db;

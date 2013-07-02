@@ -1,8 +1,7 @@
 package com.favorlock.ForumBridge.commands;
 
-import org.bukkit.ChatColor;
-
 import com.favorlock.ForumBridge.ForumBridge;
+import org.bukkit.ChatColor;
 
 public class BbbVersionCommand extends BaseCommand {
 

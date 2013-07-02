@@ -1,8 +1,8 @@
 package com.favorlock.ForumBridge;
 
-import java.sql.SQLException;
-
 import com.favorlock.ForumBridge.extras.lib.PatPeter.SQLibrary.MySQL;
+
+import java.sql.SQLException;
 
 public class ForumBridgeWebsiteDB {
 	public static MySQL dbm;

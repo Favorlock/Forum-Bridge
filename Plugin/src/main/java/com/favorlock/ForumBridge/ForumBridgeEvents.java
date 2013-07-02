@@ -11,12 +11,12 @@ public class ForumBridgeEvents implements Listener {
 
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerJoin(PlayerJoinEvent event) {
-		com.favorlock.ForumBridge.p.getServer().getScheduler().runTaskAsynchronously(com.favorlock.ForumBridge.p, new ForumBridgeRunnable(com.favorlock.ForumBridge.p, event));
+		ForumBridge.p.getServer().getScheduler().runTaskAsynchronously(ForumBridge.p, new ForumBridgeRunnable(ForumBridge.p, event));
 	}
 
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerTeleport(PlayerTeleportEvent event) {
-		com.favorlock.ForumBridge.p.getServer().getScheduler().runTaskAsynchronously(com.favorlock.ForumBridge.p, new ForumBridgeRunnable(com.favorlock.ForumBridge.p, event));
+		ForumBridge.p.getServer().getScheduler().runTaskAsynchronously(ForumBridge.p, new ForumBridgeRunnable(ForumBridge.p, event));
 	}
 
 	@EventHandler

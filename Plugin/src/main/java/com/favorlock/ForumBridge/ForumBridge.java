@@ -1,18 +1,8 @@
 package com.favorlock.ForumBridge;
 
-import java.io.File;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
-
+import com.favorlock.ForumBridge.commands.*;
+import com.favorlock.ForumBridge.extras.Metrics;
 import net.milkbowl.vault.permission.Permission;
-
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -20,20 +10,16 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.favorlock.ForumBridge.commands.BbbCommand;
-import com.favorlock.ForumBridge.commands.BbbVersionCommand;
-import com.favorlock.ForumBridge.commands.FBanCommand;
-import com.favorlock.ForumBridge.commands.FDemoteCommand;
-import com.favorlock.ForumBridge.commands.FPromoteCommand;
-import com.favorlock.ForumBridge.commands.FRankCommand;
-import com.favorlock.ForumBridge.commands.FUnbanCommand;
-import com.favorlock.ForumBridge.commands.FUsernameCommand;
-import com.favorlock.ForumBridge.commands.FsyncAllCommand;
-import com.favorlock.ForumBridge.commands.FsyncCommand;
-import com.favorlock.ForumBridge.commands.ResyncCommand;
-import com.favorlock.ForumBridge.commands.SyncCommand;
-import com.favorlock.ForumBridge.extras.Metrics;
-import com.favorlock.ForumBridge.commands.*;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 public class ForumBridge extends JavaPlugin {
 	public static String name;

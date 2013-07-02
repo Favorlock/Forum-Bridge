@@ -1,13 +1,12 @@
 package com.favorlock.ForumBridge.commands;
 
-import java.util.List;
-
+import com.favorlock.ForumBridge.ForumBridgeConfig;
+import com.favorlock.ForumBridge.ForumBridgeFunctions;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import com.favorlock.ForumBridge.ForumBridgeConfig;
-import com.favorlock.ForumBridge.ForumBridgeFunctions;
+import java.util.List;
 
 public class FPromoteCommand extends BaseCommand {
 	public FPromoteCommand() {

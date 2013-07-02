@@ -12,18 +12,12 @@ package com.favorlock.ForumBridge.extras.lib.PatPeter.SQLibrary;
  */
 
 import java.io.File;
-import java.sql.DatabaseMetaData;
+import java.sql.*;
+import java.util.logging.Logger;
 
 /*
  * Both
  */
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Logger;
 
 public class SQLite extends Database {
 	public String location;

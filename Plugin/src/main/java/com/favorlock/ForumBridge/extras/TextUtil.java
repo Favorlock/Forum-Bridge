@@ -1,9 +1,12 @@
 package com.favorlock.ForumBridge.extras;
 
-import java.util.*;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 
 public class TextUtil {
 	public static String titleize(String str) {

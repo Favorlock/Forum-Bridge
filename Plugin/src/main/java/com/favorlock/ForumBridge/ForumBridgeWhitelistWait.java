@@ -11,7 +11,7 @@ public class ForumBridgeWhitelistWait implements Runnable {
 
 	@Override
 	public void run() {
-		com.favorlock.ForumBridge.p.getLogger().info("We waited 30s!");
+		ForumBridge.p.getLogger().info("We waited 30s!");
 		// TODO Auto-generated method stub
 		if (!ForumBridgeFunctions.hasAccount(player.getName())) {
 			player.kickPlayer("You went over the 30 secs limit to sync. Sync faster!");

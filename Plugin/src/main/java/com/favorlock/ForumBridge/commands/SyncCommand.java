@@ -1,9 +1,8 @@
 package com.favorlock.ForumBridge.commands;
 
-import org.bukkit.ChatColor;
-
-import com.favorlock.ForumBridge.ForumBridgeFunctions;
 import com.favorlock.ForumBridge.ForumBridge;
+import com.favorlock.ForumBridge.ForumBridgeFunctions;
+import org.bukkit.ChatColor;
 
 public class SyncCommand extends BaseCommand {
 	public SyncCommand() {

@@ -7,15 +7,10 @@
  */
 package com.favorlock.ForumBridge.extras.lib.PatPeter.SQLibrary;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Logger;
-
 import com.favorlock.ForumBridge.ForumBridge;
+
+import java.sql.*;
+import java.util.logging.Logger;
 
 public class MySQL extends Database {
 	private String hostname = "localhost";

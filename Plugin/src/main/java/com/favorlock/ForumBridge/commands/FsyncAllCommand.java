@@ -1,9 +1,8 @@
 package com.favorlock.ForumBridge.commands;
 
-import org.bukkit.entity.Player;
-
-import com.favorlock.ForumBridge.ForumBridgeFunctions;
 import com.favorlock.ForumBridge.ForumBridge;
+import com.favorlock.ForumBridge.ForumBridgeFunctions;
+import org.bukkit.entity.Player;
 
 public class FsyncAllCommand extends BaseCommand {
 

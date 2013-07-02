@@ -4,10 +4,10 @@
  */
 package com.favorlock.ForumBridge.extras.lib.PatPeter.SQLibrary;
 
+import org.bukkit.plugin.java.JavaPlugin;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class SQLibrary extends JavaPlugin {
 

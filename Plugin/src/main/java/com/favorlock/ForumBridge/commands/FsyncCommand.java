@@ -1,10 +1,9 @@
 package com.favorlock.ForumBridge.commands;
 
+import com.favorlock.ForumBridge.ForumBridgeFunctions;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-
-import com.favorlock.ForumBridge.ForumBridgeFunctions;
 
 public class FsyncCommand extends BaseCommand {
 
