@@ -1,5 +1,3 @@
-package com.favorlock.ForumBridge.Listeners;
-
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,9 +9,9 @@ import com.favorlock.ForumBridge.ForumBridgeSync;
 import com.favorlock.ForumBridge.ForumBridgeWebsiteDB;
 import com.favorlock.ForumBridge.ForumBridgeConfig;
 
-public class myBB implements ForumBridgeSync {
+public class vBulletin implements ForumBridgeSync {
 
-	public myBB() {
+	public vBulletin() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -25,10 +23,10 @@ public class myBB implements ForumBridgeSync {
 			ResultSet rs =
 					ForumBridgeWebsiteDB.dbm.prepare(
 							"SELECT password,salt FROM " + ForumBridgeConfig.tablePrefix
-									+ "users WHERE username = '" + username + "'").executeQuery();
+									+ "user WHERE username = '" + username + "'").executeQuery();
 			if (rs.next()) {
 				do {
-					encpass = Tools.md5(Tools.md5(rs.getString("salt")) + (Tools.md5(password)));
+					encpass = Tools.md5(Tools.md5(password) + rs.getString("salt"));
 					if (encpass.equals(rs.getString("password"))) {
 						exist = true;
 					}
@@ -46,7 +44,7 @@ public class myBB implements ForumBridgeSync {
 	@Override
 	public void changeRank(String username, int forumGroupId) {
 		try {
-			ForumBridgeWebsiteDB.dbm.prepare("UPDATE " + ForumBridgeConfig.tablePrefix + "users SET usergroup=" + forumGroupId + " WHERE username = '" + username + "'").executeUpdate();
+			ForumBridgeWebsiteDB.dbm.prepare("UPDATE " + ForumBridgeConfig.tablePrefix + "user SET usergroupid=" + forumGroupId + " WHERE username = '" + username + "'").executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -54,13 +52,13 @@ public class myBB implements ForumBridgeSync {
 
 	@Override
 	public void ban(String username, int forumGroupId) {
-		// TODO use com.favorlock.ForumBridge.Listeners.myBB ban system
+		// TODO use vBulletin ban system
 		changeRank(username, forumGroupId);
 	}
 
 	@Override
 	public void unban(String username, int forumGroupId) {
-		// TODO use com.favorlock.ForumBridge.Listeners.myBB ban system
+		// TODO use vBulletin ban system
 		changeRank(username, forumGroupId);
 	}
 
@@ -68,14 +66,26 @@ public class myBB implements ForumBridgeSync {
 	public List<Integer> getGroup(String username) {
 		List<Integer> group = new ArrayList<Integer>();
 		try {
-			ResultSet rs = ForumBridgeWebsiteDB.dbm.prepare("SELECT usergroup FROM " + ForumBridgeConfig.tablePrefix + "users WHERE username = '" + username + "'").executeQuery();
+			ResultSet rs = ForumBridgeWebsiteDB.dbm.prepare("SELECT usergroupid FROM " + ForumBridgeConfig.tablePrefix + "user WHERE username = '" + username + "'").executeQuery();
 			if (rs.next()) {
 				do {
-					group.add(rs.getInt("usergroup"));
+					group.add(rs.getInt("usergroupid"));
 				}
 				while (rs.next());
 			}
 			rs.close();
+			if (ForumBridgeConfig.useSecondaryGroups) {
+				rs = ForumBridgeWebsiteDB.dbm.prepare("SELECT membergroupids FROM " + ForumBridgeConfig.tablePrefix + "user WHERE username = '" + username + "'").executeQuery();
+				if (rs.next()) {
+					do {
+						group.add(rs.getInt("membergroupids"));
+					}
+					while (rs.next());
+				}
+				rs.close();
+			}
+
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

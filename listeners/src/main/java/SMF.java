@@ -1,5 +1,3 @@
-package com.favorlock.ForumBridge.Listeners;
-
 import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,19 +45,19 @@ public class SMF implements ForumBridgeSync {
 
 	@Override
 	public void ban(String username, int forumGroupId) {
-		// TODO Use official com.favorlock.ForumBridge.Listeners.SMF ban
+		// TODO Use official SMF ban
 		changeRank(username, forumGroupId);
 	}
 
 	@Override
 	public void unban(String username, int forumGroupId) {
-		// TODO Use official com.favorlock.ForumBridge.Listeners.SMF ban
+		// TODO Use official SMF ban
 		changeRank(username, forumGroupId);
 	}
 
 	@Override
 	public List<Integer> getGroup(String username) {
-		//TODO Find how com.favorlock.ForumBridge.Listeners.SMF multigroup works
+		//TODO Find how SMF multigroup works
 		List<Integer> list = new ArrayList<Integer>();
 		try {
 			ResultSet result = ForumBridgeWebsiteDB.dbm.prepare("SELECT id_group FROM " + ForumBridgeConfig.tablePrefix + "members WHERE member_name='" + username + "'").executeQuery();

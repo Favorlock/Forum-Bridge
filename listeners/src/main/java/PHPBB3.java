@@ -1,5 +1,3 @@
-package com.favorlock.ForumBridge.Listeners;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

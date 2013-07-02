@@ -1,5 +1,3 @@
-package com.favorlock.ForumBridge.Listeners;
-
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,7 +8,6 @@ import com.favorlock.ForumBridge.extras.Tools;
 import com.favorlock.ForumBridge.ForumBridgeSync;
 import com.favorlock.ForumBridge.ForumBridgeWebsiteDB;
 import com.favorlock.ForumBridge.ForumBridgeConfig;
-
 
 public class IPB implements ForumBridgeSync {
 

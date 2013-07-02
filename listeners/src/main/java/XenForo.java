@@ -1,5 +1,3 @@
-package com.favorlock.ForumBridge.Listeners;
-
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
