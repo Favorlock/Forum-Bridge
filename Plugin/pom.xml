@@ -14,7 +14,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <bukkitVersion>1.4.6-R0.3</bukkitVersion>
+        <bukkitVersion>1.6.4-R2.0</bukkitVersion>
     </properties>
 
     <repositories>
