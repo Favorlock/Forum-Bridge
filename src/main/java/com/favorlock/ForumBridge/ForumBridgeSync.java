@@ -49,12 +49,4 @@ public interface ForumBridgeSync {
      */
     public List<Integer> getGroup(String username);
 
-    /**
-     * Register the user in the website
-     *
-     * @param username The player's username
-     * @param password The player's password
-     * @return True if success, else false
-     */
-    public boolean registerUser(String username, String password);
 }
