@@ -5,10 +5,8 @@ import java.util.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 
-public class TextUtil
-{
-    public static String titleize(String str)
-    {
+public class TextUtil {
+    public static String titleize(String str) {
         String line = ChatColor.GOLD + repeat("_", 60);
         String center = ".[ " + ChatColor.YELLOW + str + ChatColor.GOLD + " ].";
         int pivot = line.length() / 2;
@@ -21,36 +19,29 @@ public class TextUtil
             return center;
     }
 
-    public static String merge(List<String> message, int start)
-    {
+    public static String merge(List<String> message, int start) {
         String theString = "";
-        for (int i = start; i < message.size(); i++)
-        {
+        for (int i = start; i < message.size(); i++) {
             theString += message.get(i);
         }
         return theString;
     }
 
-    public static String repeat(String s, int times)
-    {
+    public static String repeat(String s, int times) {
         if (times <= 0)
             return "";
         else
             return s + repeat(s, times - 1);
     }
 
-    public static ArrayList<String> split(String str)
-    {
+    public static ArrayList<String> split(String str) {
         return new ArrayList<String>(Arrays.asList(str.trim().split("\\s+")));
     }
 
-    public static String implode(List<String> list, String glue)
-    {
+    public static String implode(List<String> list, String glue) {
         String ret = "";
-        for (int i = 0; i < list.size(); i++)
-        {
-            if (i != 0)
-            {
+        for (int i = 0; i < list.size(); i++) {
+            if (i != 0) {
                 ret += glue;
             }
             ret += list.get(i);
@@ -58,8 +49,7 @@ public class TextUtil
         return ret;
     }
 
-    public static String implode(List<String> list)
-    {
+    public static String implode(List<String> list) {
         return implode(list, " ");
     }
 
@@ -73,8 +63,7 @@ public class TextUtil
      * " ")); return TextUtil.implode(parts, " "); }
      */
 
-    public static String getMaterialName(Material material)
-    {
+    public static String getMaterialName(Material material) {
         String ret = material.toString();
         ret = ret.replace('_', ' ');
         ret = ret.toLowerCase();
@@ -83,17 +72,14 @@ public class TextUtil
 
     // / TODO create tag whitelist!!
     public static HashSet<String> substanceChars = new HashSet<String>(Arrays.asList(new String[]
-    { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X",
-            "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" }));
+            {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X",
+                    "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"}));
 
-    public static String getComparisonString(String str)
-    {
+    public static String getComparisonString(String str) {
         String ret = "";
 
-        for (char c : str.toCharArray())
-        {
-            if (substanceChars.contains(String.valueOf(c)))
-            {
+        for (char c : str.toCharArray()) {
+            if (substanceChars.contains(String.valueOf(c))) {
                 ret += c;
             }
         }
@@ -101,8 +87,7 @@ public class TextUtil
         return ret.toLowerCase();
     }
 
-    public static String colorizeText(String string)
-    {
+    public static String colorizeText(String string) {
         string = string.replaceAll("&0", ChatColor.BLACK + "");
         string = string.replaceAll("&1", ChatColor.DARK_BLUE + "");
         string = string.replaceAll("&2", ChatColor.DARK_GREEN + "");

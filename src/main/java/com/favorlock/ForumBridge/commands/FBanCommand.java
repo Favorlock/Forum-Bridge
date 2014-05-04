@@ -7,11 +7,9 @@ import org.bukkit.entity.Player;
 import com.favorlock.ForumBridge.ForumBridgeFunctions;
 import com.favorlock.ForumBridge.extras.TextUtil;
 
-public class FBanCommand extends BaseCommand
-{
+public class FBanCommand extends BaseCommand {
 
-    public FBanCommand()
-    {
+    public FBanCommand() {
         this.command.add("fban");
         this.permFlag = "bbb.ban";
         this.helpDescription = "Ban someone ingame and on the forum";
@@ -20,30 +18,24 @@ public class FBanCommand extends BaseCommand
         this.senderMustBePlayer = false;
     }
 
-    public void perform()
-    {
-    	Player player = Bukkit.getPlayer(this.parameters.get(0));
-		if (player != null || ForumBridgeFunctions.hasAccount(this.parameters.get(0)))
-		{
-			String playerName = this.parameters.get(0);
-			if (player != null)
-			{
-				playerName = player.getName();
-			}
-			
-			String reason = "Banned";
-			
-			if (this.parameters.size() > 1)
-			{
-				reason = TextUtil.merge(this.parameters, 1);
-			}
-			
-			ForumBridgeFunctions.banUser(playerName, reason);
-			sendMessage("Player banned!");
-		}
-		else
-		{
-			sendMessage(ChatColor.RED + "No online player found or he didin't sync!");
-		}
+    public void perform() {
+        Player player = Bukkit.getPlayer(this.parameters.get(0));
+        if (player != null || ForumBridgeFunctions.hasAccount(this.parameters.get(0))) {
+            String playerName = this.parameters.get(0);
+            if (player != null) {
+                playerName = player.getName();
+            }
+
+            String reason = "Banned";
+
+            if (this.parameters.size() > 1) {
+                reason = TextUtil.merge(this.parameters, 1);
+            }
+
+            ForumBridgeFunctions.banUser(playerName, reason);
+            sendMessage("Player banned!");
+        } else {
+            sendMessage(ChatColor.RED + "No online player found or he didin't sync!");
+        }
     }
 }

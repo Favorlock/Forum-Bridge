@@ -36,8 +36,7 @@ import com.favorlock.ForumBridge.extras.Metrics;
 import com.favorlock.ForumBridge.extras.DownloadLinks;
 import com.favorlock.ForumBridge.commands.*;
 
-public class ForumBridge extends JavaPlugin
-{
+public class ForumBridge extends JavaPlugin {
     public static String name;
     public static String version;
     public static List<String> authors;
@@ -46,162 +45,131 @@ public class ForumBridge extends JavaPlugin
     public List<BaseCommand> commands = new ArrayList<BaseCommand>();
     public static ForumBridge p;
     public static Permission perms;
-    public static HashMap<String, String> worldUpdate = new HashMap<String,String>();
+    public static HashMap<String, String> worldUpdate = new HashMap<String, String>();
     //hashmap for player sync. Key is player name and entry is the account name.
     public static HashMap<String, String> playerList = new HashMap<String, String>();
-    
-    public void onEnable()
-    {
-    	p = this;
+
+    public void onEnable() {
+        p = this;
         name = this.getDescription().getName();
         version = this.getDescription().getVersion();
         authors = this.getDescription().getAuthors();
         PluginManager pm = this.getServer().getPluginManager();
         ForumBridgeLogger.initialize(this.getLogger());
-        
+
         ForumBridgeLogger.info("Initializing Vault");
-        if (!setupPermissions())
-        {
+        if (!setupPermissions()) {
             ForumBridgeLogger.info("Permissions plugin not found, shutting down...");
             pm.disablePlugin(this);
-        }
-        else
-        {
-        	//Load the configuration
-        	ForumBridgeLogger.info("Initializing configuration.");
-        	
+        } else {
+            //Load the configuration
+            ForumBridgeLogger.info("Initializing configuration.");
+
             new ForumBridgeConfig(this);
-            
+
             //Loading databases
             ForumBridgeLogger.info("Loading the internal database");
             ForumBridgeDb = new ForumBridgeInternalDB(this);
-            
+
             //MySQL connect
             ForumBridgeLogger.info("Trying to connect to the external database");
-            try
-    		{
-    			new ForumBridgeWebsiteDB(this);
-    		}
-    		catch (SQLException e2)
-    		{
-    			ForumBridgeLogger.error(e2.getMessage());
-    			pm.disablePlugin(this);
-    		}
-            
-            if (this.isEnabled())
-            {
-            	 //Load the corresponding link file along with metrics
+            try {
+                new ForumBridgeWebsiteDB(this);
+            } catch (SQLException e2) {
+                ForumBridgeLogger.error(e2.getMessage());
+                pm.disablePlugin(this);
+            }
+
+            if (this.isEnabled()) {
+                //Load the corresponding link file along with metrics
                 ForumBridgeLogger.info("Loading website link");
-                try
-                {
+                try {
                     File dir = new File(this.getDataFolder() + "/links");
-                    if (!dir.exists())
-                    {
-                    	ForumBridgeLogger.info("Links folder not found. Creating it!");
-                    	dir.mkdirs();
-                    	DownloadLinks.download(dir);
+                    if (!dir.exists()) {
+                        ForumBridgeLogger.info("Links folder not found. Creating it!");
+                        dir.mkdirs();
+                        DownloadLinks.download(dir);
                     }
                     @SuppressWarnings("resource")
-					ClassLoader loader = new URLClassLoader(new URL[] { dir.toURI().toURL() }, ForumBridgeSync.class.getClassLoader());
+                    ClassLoader loader = new URLClassLoader(new URL[]{dir.toURI().toURL()}, ForumBridgeSync.class.getClassLoader());
                     for (File file : dir.listFiles()) {
                         String name = file.getName().substring(0, file.getName().lastIndexOf("."));
-                        if (name.toLowerCase().equals(ForumBridgeConfig.linkName.toLowerCase()))
-                        {
-                            
+                        if (name.toLowerCase().equals(ForumBridgeConfig.linkName.toLowerCase())) {
+
                             Class<?> clazz = loader.loadClass(name);
                             Object object = clazz.newInstance();
                             if (object instanceof ForumBridgeSync) {
                                 sync = (ForumBridgeSync) object;
                                 ForumBridgeLogger.info("Website link " + name + " loaded!");
-                            }
-                            else
-                            {
+                            } else {
                                 ForumBridgeLogger.error("The class file for " + name + " loForumBridges invalid. Is it downloaded correctly?");
                                 pm.disablePlugin(this);
                             }
                         }
                     }
-                    if (sync == null)
-                    {
-                    	ForumBridgeLogger.error("Website link " + name + " not found. Be sure it is located in the plugins/ForumBridge/links folder!");
+                    if (sync == null) {
+                        ForumBridgeLogger.error("Website link " + name + " not found. Be sure it is located in the plugins/ForumBridge/links folder!");
                         pm.disablePlugin(this);
-                    }
-                    else
-                    {
-                    	//Loading metrics
+                    } else {
+                        //Loading metrics
                         Metrics metrics = new Metrics(this);
                         metrics.start();
                     }
-                    
-                }
-                catch (MalformedURLException e)
-                {
+
+                } catch (MalformedURLException e) {
                     ForumBridgeLogger.info("A error occured while loading the forum link class. Error code 1.");
                     pm.disablePlugin(this);
-                }
-                catch (InstantiationException e)
-                {
+                } catch (InstantiationException e) {
                     ForumBridgeLogger.info("A error occured while loading the forum link class. Error code 2");
                     pm.disablePlugin(this);
-                }
-                catch (IllegalAccessException e)
-                {
+                } catch (IllegalAccessException e) {
                     ForumBridgeLogger.info("A error occured while loading the forum link class. Error code 3");
                     pm.disablePlugin(this);
-                }
-                catch (ClassNotFoundException e)
-                {
+                } catch (ClassNotFoundException e) {
                     ForumBridgeLogger.info("Forum link class not found, shutting down.... Check if the configuration.forum configuration node is configurated correctly.");
                     pm.disablePlugin(this);
-                }
-                catch (IOException e)
-                {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-           
-            
+
+
             //Load events
-         
-            if (this.isEnabled())
-            {
-            	pm.registerEvents(new ForumBridgeEvents(), this);
+
+            if (this.isEnabled()) {
+                pm.registerEvents(new ForumBridgeEvents(), this);
                 ForumBridgeLogger.info("Loading commands.");
-                
+
                 setupCommands();
-                
+
                 ForumBridgeLogger.info("Loading complete!");
             }
-            
+
         }
-             
+
     }
-    
-    private boolean setupPermissions()
-    {
+
+    private boolean setupPermissions() {
         RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
         perms = rsp.getProvider();
         return perms != null;
     }
-    
-    public void onDisable()
-    {
+
+    public void onDisable() {
         ForumBridgeLogger.info("Closing remote MySQL connection");
-    	ForumBridgeWebsiteDB.dbm.close();
-    	
-    	ForumBridgeLogger.info("Closing local DB connection");
-    	ForumBridgeDb.close();	
+        ForumBridgeWebsiteDB.dbm.close();
+
+        ForumBridgeLogger.info("Closing local DB connection");
+        ForumBridgeDb.close();
     }
-    
-    public void disable() 
-    {
-    	Bukkit.getServer().getPluginManager().disablePlugin(this);
-    	Bukkit.getServer().getScheduler().cancelTask(ForumBridgeWebsiteDB.taskID);
+
+    public void disable() {
+        Bukkit.getServer().getPluginManager().disablePlugin(this);
+        Bukkit.getServer().getScheduler().cancelTask(ForumBridgeWebsiteDB.taskID);
     }
-    
-    private void setupCommands()
-    {
-    	commands.add(new BbbCommand());
+
+    private void setupCommands() {
+        commands.add(new BbbCommand());
         commands.add(new BbbVersionCommand());
         commands.add(new SyncCommand());
         commands.add(new ResyncCommand());
@@ -214,20 +182,17 @@ public class ForumBridge extends JavaPlugin
         commands.add(new FRankCommand());
         commands.add(new FUsernameCommand());
     }
-    
-    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args)
-    {
+
+    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         List<String> parameters = new ArrayList<String>(Arrays.asList(args));
         String commandName = cmd.getName();
-        for (BaseCommand ForumBridgeCommand : this.commands)
-        {
-            if (ForumBridgeCommand.getCommands().contains(commandName))
-            {
+        for (BaseCommand ForumBridgeCommand : this.commands) {
+            if (ForumBridgeCommand.getCommands().contains(commandName)) {
                 ForumBridgeCommand.execute(sender, parameters);
                 return true;
             }
         }
         return false;
     }
-    
+
 }

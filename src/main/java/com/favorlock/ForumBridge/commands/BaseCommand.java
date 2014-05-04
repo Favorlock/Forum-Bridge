@@ -10,8 +10,7 @@ import org.bukkit.entity.Player;
 
 import com.favorlock.ForumBridge.extras.TextUtil;
 
-public class BaseCommand
-{
+public class BaseCommand {
 
     public List<String> command, requiredParameters, optionalParameters;
 
@@ -22,8 +21,7 @@ public class BaseCommand
 
     public List<String> parameters;
 
-    public BaseCommand()
-    {
+    public BaseCommand() {
         command = new ArrayList<String>();
         requiredParameters = new ArrayList<String>();
         optionalParameters = new ArrayList<String>();
@@ -35,44 +33,35 @@ public class BaseCommand
         commandOnly = true;
     }
 
-    public void execute(CommandSender sender, List<String> parameters)
-    {
+    public void execute(CommandSender sender, List<String> parameters) {
         this.sender = sender;
-        if (!commandOnly && parameters.size() > 0)
-        {
-            if (this.getCommands().contains(parameters.get(0)))
-            {
+        if (!commandOnly && parameters.size() > 0) {
+            if (this.getCommands().contains(parameters.get(0))) {
                 parameters.remove(0);
             }
         }
         this.parameters = parameters;
-        if (!validateCall())
-        {
+        if (!validateCall()) {
             return;
         }
-        if (sender instanceof Player)
-        {
+        if (sender instanceof Player) {
             this.player = (Player) sender;
         }
         perform();
     }
 
-    public boolean validateCall()
-    {
-        if (this.senderMustBePlayer && !(sender instanceof Player))
-        {
+    public boolean validateCall() {
+        if (this.senderMustBePlayer && !(sender instanceof Player)) {
             sender.sendMessage("This command can only be used by ingame players.");
             return false;
         }
 
-        if (!hasPermission(sender))
-        {
+        if (!hasPermission(sender)) {
             sender.sendMessage("You lack the permissions to " + this.helpDescription.toLowerCase() + ".");
             return false;
         }
 
-        if (parameters.size() < requiredParameters.size())
-        {
+        if (parameters.size() < requiredParameters.size()) {
             sender.sendMessage("Usage: " + this.getUseageTemplate(false));
             return false;
         }
@@ -80,12 +69,10 @@ public class BaseCommand
         return true;
     }
 
-    public void perform()
-    {
+    public void perform() {
     }
 
-    public String getUseageTemplate(boolean withDescription)
-    {
+    public String getUseageTemplate(boolean withDescription) {
         String ret = "";
 
         ret += ChatColor.AQUA;
@@ -94,13 +81,11 @@ public class BaseCommand
 
         List<String> parts = new ArrayList<String>();
 
-        for (String requiredParameter : this.requiredParameters)
-        {
+        for (String requiredParameter : this.requiredParameters) {
             parts.add("[" + requiredParameter + "]");
         }
 
-        for (String optionalParameter : this.optionalParameters)
-        {
+        for (String optionalParameter : this.optionalParameters) {
             parts.add("*<" + optionalParameter + ">");
         }
 
@@ -108,42 +93,35 @@ public class BaseCommand
 
         ret += TextUtil.implode(parts, " ");
 
-        if (withDescription)
-        {
+        if (withDescription) {
             ret += "  " + ChatColor.YELLOW + this.helpDescription;
         }
         return ret;
     }
 
-    public List<String> getCommands()
-    {
+    public List<String> getCommands() {
         return this.command;
     }
 
-    public boolean hasPermission(CommandSender sender)
-    {
+    public boolean hasPermission(CommandSender sender) {
         boolean result = true;
-        if (!this.permFlag.equalsIgnoreCase(""))
-        {
+        if (!this.permFlag.equalsIgnoreCase("")) {
             result = sender.hasPermission(this.permFlag);
         }
 
         return result;
     }
 
-    public void sendMessage(Player player, String message)
-    {
+    public void sendMessage(Player player, String message) {
         if (player != null)
             player.sendMessage(ChatColor.GREEN + "[" + ChatColor.YELLOW + "ForumBridge" + ChatColor.GREEN + "] " + message);
     }
 
-    public void sendMessage(String message)
-    {
+    public void sendMessage(String message) {
         sender.sendMessage(ChatColor.GREEN + "[" + ChatColor.YELLOW + "ForumBridge" + ChatColor.GREEN + "] " + message);
     }
 
-    public String colorizeText(String text, ChatColor color)
-    {
+    public String colorizeText(String text, ChatColor color) {
         return color + text + ChatColor.WHITE;
     }
 }

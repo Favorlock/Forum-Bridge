@@ -11,11 +11,9 @@ import java.net.URLConnection;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-public class DownloadLinks
-{
-	public static void download(File folder)
-	{
-		URL url; //represents the location of the file we want to dl.
+public class DownloadLinks {
+    public static void download(File folder) {
+        URL url; //represents the location of the file we want to dl.
         URLConnection con;  // represents a connection to the url we want to dl.
         DataInputStream dis;  // input stream that will read data from the file.
         byte[] fileData;  //byte array used to hold data from downloaded file.
@@ -28,47 +26,43 @@ public class DownloadLinks
                 fileData[x] = dis.readByte();
             }
             dis.close(); // close the data input stream
-            
+
             ZipInputStream zipinputstream = null;
             ZipEntry zipentry;
             zipinputstream = new ZipInputStream(
-                new ByteArrayInputStream(fileData));
+                    new ByteArrayInputStream(fileData));
 
             zipentry = zipinputstream.getNextEntry();
-            while (zipentry != null) 
-            { 
+            while (zipentry != null) {
                 //for each entry to be extracted
                 String entryName = zipentry.getName();
                 int n;
                 FileOutputStream fileoutputstream;
                 File newFile = new File(folder.getPath() + entryName);
                 String directory = newFile.getParent();
-                
-                if(directory == null)
-                {
-                    if(newFile.isDirectory())
+
+                if (directory == null) {
+                    if (newFile.isDirectory())
                         break;
                 }
-                
+
                 fileoutputstream = new FileOutputStream(
-                		folder.getPath() + File.separator + entryName);             
+                        folder.getPath() + File.separator + entryName);
                 byte[] buf = new byte[1024];
                 while ((n = zipinputstream.read(buf, 0, 1024)) > -1)
                     fileoutputstream.write(buf, 0, n);
 
-                fileoutputstream.close(); 
+                fileoutputstream.close();
                 zipinputstream.closeEntry();
                 zipentry = zipinputstream.getNextEntry();
 
             }//while
 
             zipinputstream.close();
-        }
-        catch(MalformedURLException m) {
+        } catch (MalformedURLException m) {
             System.out.println(m);
-        }
-        catch(IOException io) {
+        } catch (IOException io) {
             System.out.println(io);
         }
-	}
+    }
 }

@@ -1,81 +1,81 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.favorlock</groupId>
-	<version>1.0.4b</version>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.favorlock</groupId>
+    <version>1.0.4b</version>
 
-	<name>ForumBridge</name>
-	<url>https://github.com/Favorlock/ForumBridge</url>
-	<description>Sync Your Forums Users To Their In-Game Account</description>
+    <name>ForumBridge</name>
+    <url>https://github.com/Favorlock/ForumBridge</url>
+    <description>Sync Your Forums Users To Their In-Game Account</description>
 
-	<!-- Source code -->
-	<scm>
-		<developerConnection>scm:git:git@github.com:Favorlock/Forum-Bridge.git</developerConnection>
-		<connection>scm:git://github.com/Favorlock/Forum-Bridge.git</connection>
-		<url>https://github.com/Favorlock/Forum-Bridge</url>
-	</scm>
+    <!-- Source code -->
+    <scm>
+        <developerConnection>scm:git:git@github.com:Favorlock/Forum-Bridge.git</developerConnection>
+        <connection>scm:git://github.com/Favorlock/Forum-Bridge.git</connection>
+        <url>https://github.com/Favorlock/Forum-Bridge</url>
+    </scm>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<bukkitVersion>1.4.6-R0.3</bukkitVersion>
-	</properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <bukkitVersion>1.4.6-R0.3</bukkitVersion>
+    </properties>
 
-	<repositories>
-		<repository>
-			<id>bukkit-repo</id>
-			<url>http://repo.bukkit.org/content/groups/public/</url>
-		</repository>
-	<repository>
-		<id>vault-repo</id>
-		<url>http://ci.herocraftonline.com/plugin/repository/everything</url>
-	</repository>
-	</repositories>
+    <repositories>
+        <repository>
+            <id>bukkit-repo</id>
+            <url>http://repo.bukkit.org/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>vault-repo</id>
+            <url>http://ci.herocraftonline.com/plugin/repository/everything</url>
+        </repository>
+    </repositories>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.bukkit</groupId>
-			<artifactId>craftbukkit</artifactId>
-			<version>${bukkitVersion}</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-  	<dependency>
-		<groupId>net.milkbowl.vault</groupId>
-		<artifactId>Vault</artifactId>
-		<version>1.2.22-SNAPSHOT</version>
-	</dependency>
-	</dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.bukkit</groupId>
+            <artifactId>craftbukkit</artifactId>
+            <version>${bukkitVersion}</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.milkbowl.vault</groupId>
+            <artifactId>Vault</artifactId>
+            <version>1.2.22-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
-	<build>
-		<defaultGoal>clean install</defaultGoal>
-		<resources>
-			<resource>
-				<targetPath>.</targetPath>
-				<filtering>true</filtering>
-				<directory>${basedir}/src/main/resources</directory>
-				<includes>
-					<include>*.yml</include>
-				</includes>
-			</resource>
-		</resources>
-		<plugins>
-			<!-- Compiler plugin -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-					<compilerArguments>
-						<O>-Xlint:all</O>
-						<O>-Xlint:-path</O>
-					</compilerArguments>
-					<showWarnings>true</showWarnings>
-					<showDeprecation>true</showDeprecation>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-	<artifactId>Forum-Bridge</artifactId>
+    <build>
+        <defaultGoal>clean install</defaultGoal>
+        <resources>
+            <resource>
+                <targetPath>.</targetPath>
+                <filtering>true</filtering>
+                <directory>${basedir}/src/main/resources</directory>
+                <includes>
+                    <include>*.yml</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <!-- Compiler plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <compilerArguments>
+                        <O>-Xlint:all</O>
+                        <O>-Xlint:-path</O>
+                    </compilerArguments>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <artifactId>Forum-Bridge</artifactId>
 </project>

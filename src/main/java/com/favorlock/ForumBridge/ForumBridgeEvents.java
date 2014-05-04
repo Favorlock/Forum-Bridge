@@ -7,28 +7,23 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
-public class ForumBridgeEvents implements Listener
-{
+public class ForumBridgeEvents implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onPlayerJoin(PlayerJoinEvent event)
-    {
+    public void onPlayerJoin(PlayerJoinEvent event) {
         ForumBridge.p.getServer().getScheduler().runTaskAsynchronously(ForumBridge.p, new ForumBridgeRunnable(ForumBridge.p, event));
     }
-    
+
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onPlayerTeleport(PlayerTeleportEvent event)
-    {
-    	ForumBridge.p.getServer().getScheduler().runTaskAsynchronously(ForumBridge.p, new ForumBridgeRunnable(ForumBridge.p, event));
+    public void onPlayerTeleport(PlayerTeleportEvent event) {
+        ForumBridge.p.getServer().getScheduler().runTaskAsynchronously(ForumBridge.p, new ForumBridgeRunnable(ForumBridge.p, event));
     }
-    
+
     @EventHandler
-    public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event)
-    {
-    	String[] args = event.getMessage().split(" ");
-    	if(args[0].equalsIgnoreCase("sync"))
-    	{
-    		event.setCancelled(true);
-    	}
+    public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
+        String[] args = event.getMessage().split(" ");
+        if (args[0].equalsIgnoreCase("sync")) {
+            event.setCancelled(true);
+        }
     }
 }

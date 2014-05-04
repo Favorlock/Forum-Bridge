@@ -11,85 +11,68 @@ import com.favorlock.ForumBridge.ForumBridgeWebsiteDB;
 import com.favorlock.ForumBridge.extras.Tools;
 
 public class PunBB implements ForumBridgeSync {
-	
-	public PunBB() {
-		
-	}
+
+    public PunBB() {
+
+    }
 
     @Override
-    public boolean accountExist(String username, String password)
-    {
+    public boolean accountExist(String username, String password) {
         boolean exist = false;
-        try
-        {
+        try {
             PreparedStatement query = ForumBridgeWebsiteDB.dbm.prepare("SELECT password, salt FROM " + ForumBridgeConfig.tablePrefix + "users WHERE username='" + username + "'");
             ResultSet rs = query.executeQuery();
-            if (rs != null)
-            {
-                if (rs.next())
-                {
-                    if (rs.getString("password").equals(Tools.SHA1(rs.getString("salt") + Tools.SHA1(rs.getString("password")))));
+            if (rs != null) {
+                if (rs.next()) {
+                    if (rs.getString("password").equals(Tools.SHA1(rs.getString("salt") + Tools.SHA1(rs.getString("password")))))
+                        ;
                     {
                         exist = true;
                     }
                 }
             }
             rs.close();
-        }
-        catch (SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
-        }
-        catch (NoSuchAlgorithmException e)
-        {
+        } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         return exist;
     }
 
     @Override
-    public void changeRank(String username, int forumGroupId)
-    {
-        try
-        {
+    public void changeRank(String username, int forumGroupId) {
+        try {
             ForumBridgeWebsiteDB.dbm.prepare("UPDATE " + ForumBridgeConfig.tablePrefix + "users SET group_id=" + forumGroupId + " WHERE username='" + username + "'").executeUpdate();
-        }
-        catch (SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-	@Override
-	public void ban(String username, int forumGroupId) {
-		changeRank(username,forumGroupId);
-	}
-
-	@Override
-	public void unban(String username, int forumGroupId) {
-		changeRank(username,forumGroupId);
-	}
+    @Override
+    public void ban(String username, int forumGroupId) {
+        changeRank(username, forumGroupId);
+    }
 
     @Override
-    public List<Integer> getGroup(String username)
-    {
+    public void unban(String username, int forumGroupId) {
+        changeRank(username, forumGroupId);
+    }
+
+    @Override
+    public List<Integer> getGroup(String username) {
         List<Integer> list = new ArrayList<Integer>();
-        try
-        {
+        try {
             ResultSet result = ForumBridgeWebsiteDB.dbm.prepare("SELECT group_id FROM " + ForumBridgeConfig.tablePrefix + "users WHERE username='" + username + "'").executeQuery();
-            if (result != null)
-            {
-                if (result.next())
-                {
+            if (result != null) {
+                if (result.next()) {
                     list.add(result.getInt("group_id"));
                 }
             }
-        }
-        catch (SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-      
+
         return list;
     }
 
