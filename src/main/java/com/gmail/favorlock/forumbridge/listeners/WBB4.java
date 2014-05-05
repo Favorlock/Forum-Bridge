@@ -21,7 +21,8 @@ public class WBB4 implements ForumBridgeSync {
             if (rs != null) {
                 if (rs.next()) {
                     do {
-                        exist = BCrypt.checkpw(password, rs.getString("Password"));
+                        String hash = rs.getString("Password");
+                        exist = BCrypt.checkpw(password, hash, 2);
                     }
                     while (rs.next());
                 }

@@ -103,7 +103,7 @@ public class ForumBridge extends JavaPlugin {
                         }
 
                         if (sync == null) {
-                            ForumBridgeLogger.error("Website link " + name + " not found. Be sure it is located in the plugins/com.favorlock.ForumBridge/links folder!");
+                            ForumBridgeLogger.error("Website link " + name + " not found. Make sure you are using a valid link");
                             pm.disablePlugin(this);
                             return;
                         }
