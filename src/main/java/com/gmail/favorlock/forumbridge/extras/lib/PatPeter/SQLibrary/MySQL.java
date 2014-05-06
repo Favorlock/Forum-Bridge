@@ -109,7 +109,7 @@ public class MySQL extends Database {
                     result = statement.executeQuery("SELECT CURTIME()");
                 } catch (SQLException e) {
                     if (counter == 4) {
-                        ForumBridge.p.disable();
+                        ForumBridge.getInstance().disable();
                         throw e;
                     } else {
                         if (e.getMessage().contains("connection closed")) {

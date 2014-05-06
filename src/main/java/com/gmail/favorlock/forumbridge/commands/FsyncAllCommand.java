@@ -14,7 +14,7 @@ public class FsyncAllCommand extends BaseCommand {
     }
 
     public void perform() {
-        Player[] players = ForumBridge.p.getServer().getOnlinePlayers();
+        Player[] players = ForumBridge.getInstance().getServer().getOnlinePlayers();
         for (Player p : players) {
             if (ForumBridgeFunctions.hasAccount(p.getName())) {
                 ForumBridgeFunctions.syncPlayer(p.getName(), p.getWorld().getName());

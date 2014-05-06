@@ -12,7 +12,7 @@ public class BbbCommand extends BaseCommand {
     }
 
     public void perform() {
-        for (BaseCommand ForumBridgeCommand : ForumBridge.p.commands) {
+        for (BaseCommand ForumBridgeCommand : ForumBridge.getInstance().commands) {
             if (ForumBridgeCommand.hasPermission(sender)) {
                 sendMessage(ForumBridgeCommand.getUseageTemplate(true));
             }

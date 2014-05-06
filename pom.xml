@@ -4,7 +4,7 @@
 
     <groupId>com.gmail.favorlock</groupId>
     <artifactId>Forum-Bridge</artifactId>
-    <version>1.0.4b</version>
+    <version>1.1.1a</version>
 
     <build>
         <finalName>${artifactId}</finalName>

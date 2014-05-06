@@ -2,6 +2,7 @@ package com.gmail.favorlock.forumbridge;
 
 import com.gmail.favorlock.forumbridge.commands.*;
 import com.gmail.favorlock.forumbridge.extras.Metrics;
+import lombok.Getter;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -22,23 +23,18 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ForumBridge extends JavaPlugin {
-    public static String name;
-    public static String version;
-    public static List<String> authors;
-    public static ForumBridgeSync sync;
-    public static ForumBridgeInternalDB ForumBridgeDb;
-    public List<BaseCommand> commands = new ArrayList<BaseCommand>();
-    public static ForumBridge p;
-    public static Permission perms;
-    public static HashMap<String, String> worldUpdate = new HashMap<String, String>();
+    @Getter public static ForumBridgeSync sync;
+    @Getter public static ForumBridgeInternalDB ForumBridgeDb;
+    @Getter public List<BaseCommand> commands = new ArrayList<BaseCommand>();
+    @Getter private static ForumBridge instance;
+    @Getter public static Permission perms;
+    @Getter public static HashMap<String, String> worldUpdate = new HashMap<String, String>();
+
     //hashmap for player sync. Key is player name and entry is the account name.
-    public static HashMap<String, String> playerList = new HashMap<String, String>();
+    @Getter public static HashMap<String, String> playerList = new HashMap<String, String>();
 
     public void onEnable() {
-        p = this;
-        name = this.getDescription().getName();
-        version = this.getDescription().getVersion();
-        authors = this.getDescription().getAuthors();
+        instance = this;
         PluginManager pm = this.getServer().getPluginManager();
         ForumBridgeLogger.initialize(this.getLogger());
 
@@ -103,7 +99,7 @@ public class ForumBridge extends JavaPlugin {
                         }
 
                         if (sync == null) {
-                            ForumBridgeLogger.error("Website link " + name + " not found. Make sure you are using a valid link");
+                            ForumBridgeLogger.error("Website link " + getDescription().getName() + " not found. Make sure you are using a valid link");
                             pm.disablePlugin(this);
                             return;
                         }

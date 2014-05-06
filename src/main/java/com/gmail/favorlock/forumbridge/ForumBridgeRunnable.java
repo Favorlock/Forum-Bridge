@@ -41,8 +41,8 @@ public class ForumBridgeRunnable implements Runnable {
                         }
                     } else {
                         //We give a grace period of 30 secs to sync
-                        ForumBridge.p.getLogger().info("Let's wait 30 seconds");
-                        ForumBridge.p.getServer().getScheduler().runTaskLaterAsynchronously(ForumBridge.p, new ForumBridgeWhitelistWait(thePlayer), 600L);
+                        ForumBridge.getInstance().getLogger().info("Let's wait 30 seconds");
+                        ForumBridge.getInstance().getServer().getScheduler().runTaskLaterAsynchronously(ForumBridge.getInstance(), new ForumBridgeWhitelistWait(thePlayer), 600L);
                     }
                 }
 
@@ -68,7 +68,7 @@ public class ForumBridgeRunnable implements Runnable {
                 update = true;
             }
 
-            if (ForumBridge.p.getServer().getPlayer(thePlayer.getName()) != null) {
+            if (ForumBridge.getInstance().getServer().getPlayer(thePlayer.getName()) != null) {
                 if (update) {
                     ForumBridge.worldUpdate.put(thePlayer.getName(), thePlayer.getWorld().getName());
                     ForumBridgeFunctions.syncPlayer(thePlayer.getName(), thePlayer.getWorld().getName());

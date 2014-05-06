@@ -71,7 +71,7 @@ public class ForumBridgeFunctions {
             List<Integer> groupList = ForumBridge.sync.getGroup(ForumBridge.ForumBridgeDb.getUser(playerName));
             Iterator<Integer> groupIterator = groupList.iterator();
             //We reset groups
-            String[] permGroupList = ForumBridge.perms.getPlayerGroups(ForumBridge.p.getServer().getPlayer(playerName));
+            String[] permGroupList = ForumBridge.perms.getPlayerGroups(ForumBridge.getInstance().getServer().getPlayer(playerName));
             for (int i = 0; i < permGroupList.length; i++) {
                 modifyGroup(true, playerName, permGroupList[i], worldName);
             }
@@ -93,14 +93,14 @@ public class ForumBridgeFunctions {
         if (groupName != null) {
             if (remove) {
                 if (worldName.equals("default")) {
-                    ForumBridge.perms.playerRemoveGroup(ForumBridge.p.getServer().getPlayer(playerName).getWorld(), ForumBridge.p.getServer().getPlayer(playerName).getName(), groupName);
+                    ForumBridge.perms.playerRemoveGroup(ForumBridge.getInstance().getServer().getPlayer(playerName).getWorld(), ForumBridge.getInstance().getServer().getPlayer(playerName).getName(), groupName);
                 } else {
-                    ForumBridge.perms.playerRemoveGroup(worldName, ForumBridge.p.getServer().getPlayer(playerName).getName(), groupName);
+                    ForumBridge.perms.playerRemoveGroup(worldName, ForumBridge.getInstance().getServer().getPlayer(playerName).getName(), groupName);
                 }
 
             } else {
                 if (worldName.equals("default")) {
-                    ForumBridge.perms.playerAddGroup(ForumBridge.p.getServer().getPlayer(playerName), groupName);
+                    ForumBridge.perms.playerAddGroup(ForumBridge.getInstance().getServer().getPlayer(playerName), groupName);
                 } else {
                     ForumBridge.perms.playerAddGroup(worldName, playerName, groupName);
                 }
