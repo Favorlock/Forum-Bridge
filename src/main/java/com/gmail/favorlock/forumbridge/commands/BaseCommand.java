@@ -112,11 +112,11 @@ public class BaseCommand {
 
     public void sendMessage(Player player, String message) {
         if (player != null)
-            player.sendMessage(ChatColor.GREEN + "[" + ChatColor.YELLOW + "com/favorlock/ForumBridge" + ChatColor.GREEN + "] " + message);
+            player.sendMessage(ChatColor.GREEN + "[" + ChatColor.YELLOW + "ForumBridge" + ChatColor.GREEN + "] " + message);
     }
 
     public void sendMessage(String message) {
-        sender.sendMessage(ChatColor.GREEN + "[" + ChatColor.YELLOW + "com/favorlock/ForumBridge" + ChatColor.GREEN + "] " + message);
+        sender.sendMessage(ChatColor.GREEN + "[" + ChatColor.YELLOW + "ForumBridge" + ChatColor.GREEN + "] " + message);
     }
 
     public String colorizeText(String text, ChatColor color) {
