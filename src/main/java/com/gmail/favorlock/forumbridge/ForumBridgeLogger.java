@@ -9,7 +9,7 @@ public class ForumBridgeLogger {
 
     public static void initialize(Logger newLog) {
         ForumBridgeLogger.log = newLog;
-        prefix = "[" + ForumBridge.name + "] ";
+        prefix = "[" + ForumBridge.getInstance().getDescription().getName() + "] ";
     }
 
     public static Logger getLog() {

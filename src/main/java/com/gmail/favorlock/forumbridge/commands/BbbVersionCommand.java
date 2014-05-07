@@ -12,8 +12,12 @@ public class BbbVersionCommand extends BaseCommand {
     }
 
     public void perform() {
-        sendMessage(colorizeText("--Bulletin Board Bridge by " + ForumBridge.authors.get(0) + ". Original Author kalmanolah--", ChatColor.AQUA));
-        sendMessage("This server is using " + colorizeText(ForumBridge.name, ChatColor.GREEN) + " version " + colorizeText(ForumBridge.version, ChatColor.GREEN) + ".");
+        sendMessage(colorizeText("--Bulletin Board Bridge by " +
+                ForumBridge.getInstance().getDescription().getAuthors().get(0) +
+                ". Original Author kalmanolah--", ChatColor.AQUA));
+        sendMessage("This server is using " +
+                colorizeText(ForumBridge.getInstance().getDescription().getName(), ChatColor.GREEN) + " version " +
+                colorizeText(ForumBridge.getInstance().getDescription().getVersion(), ChatColor.GREEN) + ".");
 
     }
 }
