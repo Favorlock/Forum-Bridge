@@ -28,11 +28,7 @@ public class ForumBridge extends JavaPlugin {
     @Getter private List<BaseCommand> commands = new ArrayList<BaseCommand>();
     @Getter private static ForumBridge instance;
     @Getter private static Permission perms;
-    @Getter private
-    static HashMap<String, String> worldUpdate = new HashMap<String, String>();
-
-    //hashmap for player sync. Key is player name and entry is the account name.
-    @Getter public static HashMap<String, String> playerList = new HashMap<String, String>();
+    @Getter private static HashMap<String, String> worldUpdate = new HashMap<String, String>();
 
     public void onEnable() {
         instance = this;
