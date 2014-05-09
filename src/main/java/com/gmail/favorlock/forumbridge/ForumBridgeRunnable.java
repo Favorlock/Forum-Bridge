@@ -22,7 +22,7 @@ public class ForumBridgeRunnable implements Runnable {
         if (this.event instanceof PlayerJoinEvent) {
             PlayerJoinEvent joinevent = (PlayerJoinEvent) event;
             Player thePlayer = joinevent.getPlayer();
-            if (!ForumBridge.ForumBridgeDb.isBannedUser(thePlayer.getName())) {
+            if (!ForumBridge.getForumBridgeDb().isBannedUser(thePlayer.getName())) {
                 if (ForumBridgeConfig.isWhitelist) {
                     if (ForumBridgeFunctions.hasAccount(thePlayer.getName())) {
                         List<Integer> groupList = ForumBridgeFunctions.getGroupList(thePlayer.getName());
@@ -46,11 +46,11 @@ public class ForumBridgeRunnable implements Runnable {
                     }
                 }
 
-                ForumBridge.worldUpdate.put(thePlayer.getName(), thePlayer.getWorld().getName());
+                ForumBridge.getWorldUpdate().put(thePlayer.getName(), thePlayer.getWorld().getName());
                 //Everything done, we sync the player!
                 ForumBridgeFunctions.syncPlayer(thePlayer.getName(), thePlayer.getWorld().getName());
             } else {
-                thePlayer.kickPlayer(ForumBridgeConfig.bannedMsg + " : " + ForumBridge.ForumBridgeDb.getBanReason(thePlayer.getName()));
+                thePlayer.kickPlayer(ForumBridgeConfig.bannedMsg + " : " + ForumBridge.getForumBridgeDb().getBanReason(thePlayer.getName()));
             }
         } else if (this.event instanceof PlayerTeleportEvent) {
             try {
@@ -60,8 +60,8 @@ public class ForumBridgeRunnable implements Runnable {
             }
             Player thePlayer = ((PlayerTeleportEvent) this.event).getPlayer();
             boolean update = false;
-            if (ForumBridge.worldUpdate.containsKey(thePlayer.getName())) {
-                if (!ForumBridge.worldUpdate.get(thePlayer.getName()).equals(thePlayer.getWorld().getName())) {
+            if (ForumBridge.getWorldUpdate().containsKey(thePlayer.getName())) {
+                if (!ForumBridge.getWorldUpdate().get(thePlayer.getName()).equals(thePlayer.getWorld().getName())) {
                     update = true;
                 }
             } else {
@@ -70,7 +70,7 @@ public class ForumBridgeRunnable implements Runnable {
 
             if (ForumBridge.getInstance().getServer().getPlayer(thePlayer.getName()) != null) {
                 if (update) {
-                    ForumBridge.worldUpdate.put(thePlayer.getName(), thePlayer.getWorld().getName());
+                    ForumBridge.getWorldUpdate().put(thePlayer.getName(), thePlayer.getWorld().getName());
                     ForumBridgeFunctions.syncPlayer(thePlayer.getName(), thePlayer.getWorld().getName());
                 }
             }

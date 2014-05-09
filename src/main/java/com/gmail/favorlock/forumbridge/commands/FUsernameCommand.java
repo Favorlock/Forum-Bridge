@@ -12,7 +12,7 @@ public class FUsernameCommand extends BaseCommand {
     }
 
     public void perform() {
-        String username = ForumBridge.ForumBridgeDb.getUser(this.parameters.get(0));
+        String username = ForumBridge.getForumBridgeDb().getUser(this.parameters.get(0));
         if (!username.equals("")) {
             sendMessage(ChatColor.DARK_AQUA + this.parameters.get(0) + "'s forum username is " + ChatColor.WHITE + username);
         } else {

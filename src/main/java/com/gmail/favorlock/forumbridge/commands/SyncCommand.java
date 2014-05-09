@@ -15,7 +15,7 @@ public class SyncCommand extends BaseCommand {
 
     public void perform() {
         if (ForumBridgeFunctions.accountExist(this.parameters.get(0), this.parameters.get(1))) {
-            ForumBridge.ForumBridgeDb.addUser(player.getName(), this.parameters.get(0));
+            ForumBridge.getForumBridgeDb().addUser(player.getName(), this.parameters.get(0));
             ForumBridgeFunctions.syncPlayer(player.getName(), player.getWorld().getName());
             sendMessage("You are now synced with your website account! Each time you connect your group will be automaticly imported.");
         } else {

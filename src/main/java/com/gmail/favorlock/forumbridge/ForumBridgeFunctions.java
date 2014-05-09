@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 
 public class ForumBridgeFunctions {
     public static boolean accountExist(String username, String password) {
-        return ForumBridge.sync.accountExist(username, password);
+        return ForumBridge.getSync().accountExist(username, password);
     }
 
     /**
@@ -20,20 +20,20 @@ public class ForumBridgeFunctions {
      */
     public static List<Integer> getGroupList(String playerName) {
         List<Integer> returnList = null;
-        if (ForumBridge.ForumBridgeDb.existUser(playerName)) {
-            returnList = ForumBridge.sync.getGroup(ForumBridge.ForumBridgeDb.getUser(playerName));
+        if (ForumBridge.getForumBridgeDb().existUser(playerName)) {
+            returnList = ForumBridge.getSync().getGroup(ForumBridge.getForumBridgeDb().getUser(playerName));
         }
         return returnList;
     }
 
     public static synchronized boolean hasAccount(String playerName) {
-        return ForumBridge.ForumBridgeDb.existUser(playerName);
+        return ForumBridge.getForumBridgeDb().existUser(playerName);
     }
 
     public static synchronized void banUser(String playerName, String reason) {
-        if (ForumBridge.ForumBridgeDb.existUser(playerName)) {
-            ForumBridge.ForumBridgeDb.banUser(playerName, reason);
-            ForumBridge.sync.changeRank(ForumBridge.ForumBridgeDb.getUser(playerName), ForumBridgeConfig.bannedGroupID);
+        if (ForumBridge.getForumBridgeDb().existUser(playerName)) {
+            ForumBridge.getForumBridgeDb().banUser(playerName, reason);
+            ForumBridge.getSync().changeRank(ForumBridge.getForumBridgeDb().getUser(playerName), ForumBridgeConfig.bannedGroupID);
 
             Player p = Bukkit.getPlayer(playerName);
 
@@ -44,15 +44,15 @@ public class ForumBridgeFunctions {
     }
 
     public static synchronized void unbanUser(String playerName) {
-        if (ForumBridge.ForumBridgeDb.existUser(playerName) && ForumBridge.ForumBridgeDb.isBannedUser(playerName)) {
-            ForumBridge.ForumBridgeDb.unbanUser(playerName);
-            ForumBridge.sync.changeRank(ForumBridge.ForumBridgeDb.getUser(playerName), ForumBridgeConfig.unbannedGroupID);
+        if (ForumBridge.getForumBridgeDb().existUser(playerName) && ForumBridge.getForumBridgeDb().isBannedUser(playerName)) {
+            ForumBridge.getForumBridgeDb().unbanUser(playerName);
+            ForumBridge.getSync().changeRank(ForumBridge.getForumBridgeDb().getUser(playerName), ForumBridgeConfig.unbannedGroupID);
         }
     }
 
     public static synchronized void setPlayerRank(String playerName, int rankID) {
         if (hasAccount(playerName)) {
-            ForumBridge.sync.changeRank(ForumBridge.ForumBridgeDb.getUser(playerName), rankID);
+            ForumBridge.getSync().changeRank(ForumBridge.getForumBridgeDb().getUser(playerName), rankID);
         }
     }
 
@@ -68,10 +68,10 @@ public class ForumBridgeFunctions {
             worldName = "default";
         }
         if (hasAccount(playerName)) {
-            List<Integer> groupList = ForumBridge.sync.getGroup(ForumBridge.ForumBridgeDb.getUser(playerName));
+            List<Integer> groupList = ForumBridge.getSync().getGroup(ForumBridge.getForumBridgeDb().getUser(playerName));
             Iterator<Integer> groupIterator = groupList.iterator();
             //We reset groups
-            String[] permGroupList = ForumBridge.perms.getPlayerGroups(ForumBridge.getInstance().getServer().getPlayer(playerName));
+            String[] permGroupList = ForumBridge.getPerms().getPlayerGroups(ForumBridge.getInstance().getServer().getPlayer(playerName));
             for (int i = 0; i < permGroupList.length; i++) {
                 modifyGroup(true, playerName, permGroupList[i], worldName);
             }
@@ -93,16 +93,16 @@ public class ForumBridgeFunctions {
         if (groupName != null) {
             if (remove) {
                 if (worldName.equals("default")) {
-                    ForumBridge.perms.playerRemoveGroup(ForumBridge.getInstance().getServer().getPlayer(playerName).getWorld(), ForumBridge.getInstance().getServer().getPlayer(playerName).getName(), groupName);
+                    ForumBridge.getPerms().playerRemoveGroup(ForumBridge.getInstance().getServer().getPlayer(playerName).getWorld(), ForumBridge.getInstance().getServer().getPlayer(playerName).getName(), groupName);
                 } else {
-                    ForumBridge.perms.playerRemoveGroup(worldName, ForumBridge.getInstance().getServer().getPlayer(playerName).getName(), groupName);
+                    ForumBridge.getPerms().playerRemoveGroup(worldName, ForumBridge.getInstance().getServer().getPlayer(playerName).getName(), groupName);
                 }
 
             } else {
                 if (worldName.equals("default")) {
-                    ForumBridge.perms.playerAddGroup(ForumBridge.getInstance().getServer().getPlayer(playerName), groupName);
+                    ForumBridge.getPerms().playerAddGroup(ForumBridge.getInstance().getServer().getPlayer(playerName), groupName);
                 } else {
-                    ForumBridge.perms.playerAddGroup(worldName, playerName, groupName);
+                    ForumBridge.getPerms().playerAddGroup(worldName, playerName, groupName);
                 }
             }
         }
