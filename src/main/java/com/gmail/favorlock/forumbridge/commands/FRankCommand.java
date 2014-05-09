@@ -21,7 +21,7 @@ public class FRankCommand extends BaseCommand {
     }
 
     public void perform() {
-        if (!ForumBridgeConfig.useSecondaryGroups) {
+        if (!ForumBridgeConfig.isUseSecondaryGroups()) {
             Player player = Bukkit.getPlayer(this.parameters.get(0));
             if (player != null || ForumBridgeFunctions.hasAccount(this.parameters.get(0))) {
                 String rank = "";
@@ -36,7 +36,7 @@ public class FRankCommand extends BaseCommand {
                 }
 
                 if (rankID == -1) {
-                    Iterator<Entry<Integer, String>> iterator = ForumBridgeConfig.rankIdentifier.entrySet().iterator();
+                    Iterator<Entry<Integer, String>> iterator = ForumBridgeConfig.getRankIdentifier().entrySet().iterator();
                     boolean found = false;
                     while (iterator.hasNext() && found == false) {
                         Entry<Integer, String> entry = iterator.next();
@@ -48,8 +48,8 @@ public class FRankCommand extends BaseCommand {
                     }
 
                 } else {
-                    if (ForumBridgeConfig.rankIdentifier.containsKey(rankID)) {
-                        rank = ForumBridgeConfig.rankIdentifier.get(rankID);
+                    if (ForumBridgeConfig.getRankIdentifier().containsKey(rankID)) {
+                        rank = ForumBridgeConfig.getRankIdentifier().get(rankID);
                     } else {
                         sendMessage(ChatColor.RED + "rank not found!");
                         return;

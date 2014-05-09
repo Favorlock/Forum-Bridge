@@ -24,7 +24,7 @@ public class myBB implements ForumBridgeSync {
         try {
             ResultSet rs =
                     ForumBridgeWebsiteDB.dbm.prepare(
-                            "SELECT password,salt FROM " + ForumBridgeConfig.tablePrefix
+                            "SELECT password,salt FROM " + ForumBridgeConfig.getTablePrefix()
                                     + "users WHERE username = '" + username + "'"
                     ).executeQuery();
             if (rs.next()) {
@@ -47,7 +47,7 @@ public class myBB implements ForumBridgeSync {
     @Override
     public void changeRank(String username, int forumGroupId) {
         try {
-            ForumBridgeWebsiteDB.dbm.prepare("UPDATE " + ForumBridgeConfig.tablePrefix + "users SET usergroup=" + forumGroupId + " WHERE username = '" + username + "'").executeUpdate();
+            ForumBridgeWebsiteDB.dbm.prepare("UPDATE " + ForumBridgeConfig.getTablePrefix() + "users SET usergroup=" + forumGroupId + " WHERE username = '" + username + "'").executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -69,7 +69,7 @@ public class myBB implements ForumBridgeSync {
     public List<Integer> getGroup(String username) {
         List<Integer> group = new ArrayList<Integer>();
         try {
-            ResultSet rs = ForumBridgeWebsiteDB.dbm.prepare("SELECT usergroup FROM " + ForumBridgeConfig.tablePrefix + "users WHERE username = '" + username + "'").executeQuery();
+            ResultSet rs = ForumBridgeWebsiteDB.dbm.prepare("SELECT usergroup FROM " + ForumBridgeConfig.getTablePrefix() + "users WHERE username = '" + username + "'").executeQuery();
             if (rs.next()) {
                 do {
                     group.add(rs.getInt("usergroup"));

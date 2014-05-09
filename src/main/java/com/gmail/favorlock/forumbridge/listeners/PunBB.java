@@ -22,7 +22,7 @@ public class PunBB implements ForumBridgeSync {
     public boolean accountExist(String username, String password) {
         boolean exist = false;
         try {
-            PreparedStatement query = ForumBridgeWebsiteDB.dbm.prepare("SELECT password, salt FROM " + ForumBridgeConfig.tablePrefix + "users WHERE username='" + username + "'");
+            PreparedStatement query = ForumBridgeWebsiteDB.dbm.prepare("SELECT password, salt FROM " + ForumBridgeConfig.getTablePrefix() + "users WHERE username='" + username + "'");
             ResultSet rs = query.executeQuery();
             if (rs != null) {
                 if (rs.next()) {
@@ -45,7 +45,7 @@ public class PunBB implements ForumBridgeSync {
     @Override
     public void changeRank(String username, int forumGroupId) {
         try {
-            ForumBridgeWebsiteDB.dbm.prepare("UPDATE " + ForumBridgeConfig.tablePrefix + "users SET group_id=" + forumGroupId + " WHERE username='" + username + "'").executeUpdate();
+            ForumBridgeWebsiteDB.dbm.prepare("UPDATE " + ForumBridgeConfig.getTablePrefix() + "users SET group_id=" + forumGroupId + " WHERE username='" + username + "'").executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -65,7 +65,7 @@ public class PunBB implements ForumBridgeSync {
     public List<Integer> getGroup(String username) {
         List<Integer> list = new ArrayList<Integer>();
         try {
-            ResultSet result = ForumBridgeWebsiteDB.dbm.prepare("SELECT group_id FROM " + ForumBridgeConfig.tablePrefix + "users WHERE username='" + username + "'").executeQuery();
+            ResultSet result = ForumBridgeWebsiteDB.dbm.prepare("SELECT group_id FROM " + ForumBridgeConfig.getTablePrefix() + "users WHERE username='" + username + "'").executeQuery();
             if (result != null) {
                 if (result.next()) {
                     list.add(result.getInt("group_id"));

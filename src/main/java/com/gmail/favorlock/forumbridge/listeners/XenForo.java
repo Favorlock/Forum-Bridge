@@ -19,8 +19,8 @@ public class XenForo implements ForumBridgeSync {
     public boolean accountExist(String username, String password) {
         boolean exist = false;
         try {
-            ResultSet rs = ForumBridgeWebsiteDB.dbm.prepare("SELECT data FROM " + (String) ForumBridgeConfig.tablePrefix + "user_authenticate," + (String) ForumBridgeConfig.tablePrefix
-                    + "user WHERE " + ForumBridgeConfig.tablePrefix + "user.username = '" + username + "' AND " + ForumBridgeConfig.tablePrefix + "user.user_id = " + ForumBridgeConfig.tablePrefix + "user_authenticate.user_id").executeQuery();
+            ResultSet rs = ForumBridgeWebsiteDB.dbm.prepare("SELECT data FROM " + (String) ForumBridgeConfig.getTablePrefix() + "user_authenticate," + (String) ForumBridgeConfig.getTablePrefix()
+                    + "user WHERE " + ForumBridgeConfig.getTablePrefix() + "user.username = '" + username + "' AND " + ForumBridgeConfig.getTablePrefix() + "user.user_id = " + ForumBridgeConfig.getTablePrefix() + "user_authenticate.user_id").executeQuery();
             if (rs.next()) {
                 do {
                     if (Tools.SHA256(Tools.SHA256(password) + Tools.regmatch("\"salt\";.:..:\"(.*)\";.:.:\"hashFunc\"", rs.getString("data"))).equals(Tools.regmatch("\"hash\";.:..:\"(.*)\";.:.:\"salt\"", rs.getString("data")))) {
@@ -41,7 +41,7 @@ public class XenForo implements ForumBridgeSync {
     @Override
     public void changeRank(String username, int forumGroupId) {
         try {
-            ForumBridgeWebsiteDB.dbm.prepare("UPDATE " + ForumBridgeConfig.tablePrefix + "user," + ForumBridgeConfig.tablePrefix + "user_authenticate SET user_group_id='" + forumGroupId + "' WHERE " + ForumBridgeConfig.tablePrefix + "user.username='" + username + "' AND " + ForumBridgeConfig.tablePrefix + "user.user_id=xf_user_authenticate.user_id").executeUpdate();
+            ForumBridgeWebsiteDB.dbm.prepare("UPDATE " + ForumBridgeConfig.getTablePrefix() + "user," + ForumBridgeConfig.getTablePrefix() + "user_authenticate SET user_group_id='" + forumGroupId + "' WHERE " + ForumBridgeConfig.getTablePrefix() + "user.username='" + username + "' AND " + ForumBridgeConfig.getTablePrefix() + "user.user_id=xf_user_authenticate.user_id").executeUpdate();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -62,7 +62,7 @@ public class XenForo implements ForumBridgeSync {
     public List<Integer> getGroup(String username) {
         //first one
         List<Integer> group = new ArrayList<Integer>();
-        String query1 = "SELECT user_group_id,data FROM " + ForumBridgeConfig.tablePrefix + "user," + ForumBridgeConfig.tablePrefix + "user_authenticate WHERE " + ForumBridgeConfig.tablePrefix + "user.username = '" + username + "'  AND " + ForumBridgeConfig.tablePrefix + "user.user_id = " + ForumBridgeConfig.tablePrefix + "user_authenticate.user_id";
+        String query1 = "SELECT user_group_id,data FROM " + ForumBridgeConfig.getTablePrefix() + "user," + ForumBridgeConfig.getTablePrefix() + "user_authenticate WHERE " + ForumBridgeConfig.getTablePrefix() + "user.username = '" + username + "'  AND " + ForumBridgeConfig.getTablePrefix() + "user.user_id = " + ForumBridgeConfig.getTablePrefix() + "user_authenticate.user_id";
         try {
             ResultSet rs = ForumBridgeWebsiteDB.dbm.prepare(query1).executeQuery();
             if (rs.next()) {
@@ -74,9 +74,9 @@ public class XenForo implements ForumBridgeSync {
             e.printStackTrace();
         }
 
-        if (ForumBridgeConfig.useSecondaryGroups) {
+        if (ForumBridgeConfig.isUseSecondaryGroups()) {
             //second one
-            String query2 = "SELECT secondary_group_ids,data FROM " + ForumBridgeConfig.tablePrefix + "user," + ForumBridgeConfig.tablePrefix + "user_authenticate WHERE " + ForumBridgeConfig.tablePrefix + "user.username = '" + username + "'  AND " + ForumBridgeConfig.tablePrefix + "user.user_id = " + ForumBridgeConfig.tablePrefix + "user_authenticate.user_id";
+            String query2 = "SELECT secondary_group_ids,data FROM " + ForumBridgeConfig.getTablePrefix() + "user," + ForumBridgeConfig.getTablePrefix() + "user_authenticate WHERE " + ForumBridgeConfig.getTablePrefix() + "user.username = '" + username + "'  AND " + ForumBridgeConfig.getTablePrefix() + "user.user_id = " + ForumBridgeConfig.getTablePrefix() + "user_authenticate.user_id";
             try {
                 ResultSet rs2 = ForumBridgeWebsiteDB.dbm.prepare(query2).executeQuery();
                 String secondarygroups = rs2.getString("secondary_group_ids");

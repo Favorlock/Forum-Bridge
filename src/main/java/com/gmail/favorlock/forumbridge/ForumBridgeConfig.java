@@ -1,5 +1,6 @@
 package com.gmail.favorlock.forumbridge;
 
+import lombok.Getter;
 import org.bukkit.configuration.MemorySection;
 
 import java.io.File;
@@ -7,7 +8,7 @@ import java.util.*;
 import java.util.Map.Entry;
 
 public class ForumBridgeConfig {
-    public static String linkName = "",
+    @Getter private static String linkName = "",
             tablePrefix = "",
             databaseHost = "",
             databaseUser = "",
@@ -17,19 +18,19 @@ public class ForumBridgeConfig {
             whitelistKickMsg = "",
             bannedMsg = "";
 
-    public static int bannedGroupID,
+    @Getter private static int bannedGroupID,
             unbannedGroupID;
 
-    public static boolean isWhitelist = false,
+    @Getter private static boolean isWhitelist = false,
             useSecondaryGroups = false;
 
-    public static int[] promotionList;
+    @Getter private static int[] promotionList;
 
-    public static HashMap<String, HashMap<Integer, String>> groupList = null;
+    @Getter private static HashMap<String, HashMap<Integer, String>> groupList = null;
 
-    public static List<Integer> whitelist = null;
+    @Getter private static List<Integer> whitelist = null;
 
-    public static HashMap<Integer, String> rankIdentifier = null;
+    @Getter private static HashMap<Integer, String> rankIdentifier = null;
 
 
     public ForumBridgeConfig(ForumBridge plugin) {

@@ -9,7 +9,13 @@ public class ForumBridgeWebsiteDB {
     public static int taskID;
 
     public ForumBridgeWebsiteDB(ForumBridge thePlugin) throws SQLException {
-        dbm = new MySQL(thePlugin.getLogger(), "com/favorlock/ForumBridge", ForumBridgeConfig.databaseHost, ForumBridgeConfig.databasePort, ForumBridgeConfig.databaseDB, ForumBridgeConfig.databaseUser, ForumBridgeConfig.databasePassword);
+        dbm = new MySQL(thePlugin.getLogger(),
+                "ForumBridge",
+                ForumBridgeConfig.getDatabaseHost(),
+                ForumBridgeConfig.getDatabasePort(),
+                ForumBridgeConfig.getDatabaseDB(),
+                ForumBridgeConfig.getDatabaseUser(),
+                ForumBridgeConfig.getDatabasePassword());
         dbm.open();
         if (!dbm.checkConnection()) {
             throw new SQLException("Impossible to connect to MySQL database.");

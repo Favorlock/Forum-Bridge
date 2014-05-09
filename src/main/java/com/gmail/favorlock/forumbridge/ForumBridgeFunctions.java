@@ -33,12 +33,12 @@ public class ForumBridgeFunctions {
     public static synchronized void banUser(String playerName, String reason) {
         if (ForumBridge.getForumBridgeDb().existUser(playerName)) {
             ForumBridge.getForumBridgeDb().banUser(playerName, reason);
-            ForumBridge.getSync().changeRank(ForumBridge.getForumBridgeDb().getUser(playerName), ForumBridgeConfig.bannedGroupID);
+            ForumBridge.getSync().changeRank(ForumBridge.getForumBridgeDb().getUser(playerName), ForumBridgeConfig.getBannedGroupID());
 
             Player p = Bukkit.getPlayer(playerName);
 
             if (p != null) {
-                p.kickPlayer(ForumBridgeConfig.bannedMsg + " : " + reason);
+                p.kickPlayer(ForumBridgeConfig.getBannedMsg() + " : " + reason);
             }
         }
     }
@@ -46,7 +46,7 @@ public class ForumBridgeFunctions {
     public static synchronized void unbanUser(String playerName) {
         if (ForumBridge.getForumBridgeDb().existUser(playerName) && ForumBridge.getForumBridgeDb().isBannedUser(playerName)) {
             ForumBridge.getForumBridgeDb().unbanUser(playerName);
-            ForumBridge.getSync().changeRank(ForumBridge.getForumBridgeDb().getUser(playerName), ForumBridgeConfig.unbannedGroupID);
+            ForumBridge.getSync().changeRank(ForumBridge.getForumBridgeDb().getUser(playerName), ForumBridgeConfig.getUnbannedGroupID());
         }
     }
 
@@ -64,7 +64,7 @@ public class ForumBridgeFunctions {
      * @return True if the user synced, false if the user doesn't have a account.
      */
     public static synchronized boolean syncPlayer(String playerName, String worldName) {
-        if (!ForumBridgeConfig.groupList.containsKey(worldName)) {
+        if (!ForumBridgeConfig.getGroupList().containsKey(worldName)) {
             worldName = "default";
         }
         if (hasAccount(playerName)) {
@@ -75,7 +75,7 @@ public class ForumBridgeFunctions {
             for (int i = 0; i < permGroupList.length; i++) {
                 modifyGroup(true, playerName, permGroupList[i], worldName);
             }
-            HashMap<Integer, String> configurationGroup = ForumBridgeConfig.groupList.get(worldName);
+            HashMap<Integer, String> configurationGroup = ForumBridgeConfig.getGroupList().get(worldName);
 
             while (groupIterator.hasNext()) {
                 String groupName = configurationGroup.get(groupIterator.next());

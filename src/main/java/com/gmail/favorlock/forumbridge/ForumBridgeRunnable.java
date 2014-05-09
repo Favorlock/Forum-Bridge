@@ -23,7 +23,7 @@ public class ForumBridgeRunnable implements Runnable {
             PlayerJoinEvent joinevent = (PlayerJoinEvent) event;
             Player thePlayer = joinevent.getPlayer();
             if (!ForumBridge.getForumBridgeDb().isBannedUser(thePlayer.getName())) {
-                if (ForumBridgeConfig.isWhitelist) {
+                if (ForumBridgeConfig.isWhitelist()) {
                     if (ForumBridgeFunctions.hasAccount(thePlayer.getName())) {
                         List<Integer> groupList = ForumBridgeFunctions.getGroupList(thePlayer.getName());
                         Iterator<Integer> iterator = groupList.iterator();
@@ -31,12 +31,12 @@ public class ForumBridgeRunnable implements Runnable {
                         boolean isWhitelist = false;
 
                         while (iterator.hasNext()) {
-                            if (ForumBridgeConfig.whitelist.contains(iterator.next())) {
+                            if (ForumBridgeConfig.getWhitelist().contains(iterator.next())) {
                                 isWhitelist = true;
                             }
                         }
                         if (!isWhitelist) {
-                            thePlayer.kickPlayer(ForumBridgeConfig.whitelistKickMsg);
+                            thePlayer.kickPlayer(ForumBridgeConfig.getWhitelistKickMsg());
                             ;
                         }
                     } else {
@@ -50,7 +50,7 @@ public class ForumBridgeRunnable implements Runnable {
                 //Everything done, we sync the player!
                 ForumBridgeFunctions.syncPlayer(thePlayer.getName(), thePlayer.getWorld().getName());
             } else {
-                thePlayer.kickPlayer(ForumBridgeConfig.bannedMsg + " : " + ForumBridge.getForumBridgeDb().getBanReason(thePlayer.getName()));
+                thePlayer.kickPlayer(ForumBridgeConfig.getBannedMsg() + " : " + ForumBridge.getForumBridgeDb().getBanReason(thePlayer.getName()));
             }
         } else if (this.event instanceof PlayerTeleportEvent) {
             try {

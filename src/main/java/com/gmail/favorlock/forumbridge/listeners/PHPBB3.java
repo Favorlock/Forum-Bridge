@@ -17,7 +17,7 @@ public class PHPBB3 implements ForumBridgeSync {
         boolean exist = false;
         PHPBB3Password phpbb = new PHPBB3Password();
         try {
-            PreparedStatement query = ForumBridgeWebsiteDB.dbm.prepare("SELECT user_password FROM " + ForumBridgeConfig.tablePrefix + "users WHERE username='" + username + "'");
+            PreparedStatement query = ForumBridgeWebsiteDB.dbm.prepare("SELECT user_password FROM " + ForumBridgeConfig.getTablePrefix() + "users WHERE username='" + username + "'");
             ResultSet result = query.executeQuery();
             if (result != null) {
                 if (result.next()) {
@@ -37,7 +37,7 @@ public class PHPBB3 implements ForumBridgeSync {
     @Override
     public void changeRank(String username, int forumGroupId) {
         try {
-            ForumBridgeWebsiteDB.dbm.prepare("UPDATE " + ForumBridgeConfig.tablePrefix + "users SET group_id=" + forumGroupId + " WHERE username='" + username + "'").executeUpdate();
+            ForumBridgeWebsiteDB.dbm.prepare("UPDATE " + ForumBridgeConfig.getTablePrefix() + "users SET group_id=" + forumGroupId + " WHERE username='" + username + "'").executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -63,10 +63,10 @@ public class PHPBB3 implements ForumBridgeSync {
         ResultSet result;
 
         try {
-            if (ForumBridgeConfig.useSecondaryGroups) {
-                query = ForumBridgeWebsiteDB.dbm.prepare("SELECT group_id FROM " + ForumBridgeConfig.tablePrefix + "user_group WHERE " + ForumBridgeConfig.tablePrefix + "users.username=." + username + "' && " + ForumBridgeConfig.tablePrefix + "users.user_id = " + ForumBridgeConfig.tablePrefix + "user_group.user_id && " + ForumBridgeConfig.tablePrefix + "user_group.user_pending = 0");
+            if (ForumBridgeConfig.isUseSecondaryGroups()) {
+                query = ForumBridgeWebsiteDB.dbm.prepare("SELECT group_id FROM " + ForumBridgeConfig.getTablePrefix() + "user_group WHERE " + ForumBridgeConfig.getTablePrefix() + "users.username=." + username + "' && " + ForumBridgeConfig.getTablePrefix() + "users.user_id = " + ForumBridgeConfig.getTablePrefix() + "user_group.user_id && " + ForumBridgeConfig.getTablePrefix() + "user_group.user_pending = 0");
             } else {
-                query = ForumBridgeWebsiteDB.dbm.prepare("SELECT group_id FROM " + ForumBridgeConfig.tablePrefix + "users WHERE username='" + username + "'");
+                query = ForumBridgeWebsiteDB.dbm.prepare("SELECT group_id FROM " + ForumBridgeConfig.getTablePrefix() + "users WHERE username='" + username + "'");
             }
             result = query.executeQuery();
             if (result != null) {

@@ -18,7 +18,7 @@ public class SMF implements ForumBridgeSync {
     public boolean accountExist(String username, String password) {
         boolean exist = false;
         try {
-            PreparedStatement query = ForumBridgeWebsiteDB.dbm.prepare("SELECT passwd FROM " + ForumBridgeConfig.tablePrefix + "members WHERE member_name='" + username + "'");
+            PreparedStatement query = ForumBridgeWebsiteDB.dbm.prepare("SELECT passwd FROM " + ForumBridgeConfig.getTablePrefix() + "members WHERE member_name='" + username + "'");
             ResultSet result = query.executeQuery();
             if (result != null) {
                 if (result.next()) {
@@ -39,7 +39,7 @@ public class SMF implements ForumBridgeSync {
     @Override
     public void changeRank(String username, int forumGroupId) {
         try {
-            ForumBridgeWebsiteDB.dbm.prepare("UPDATE " + ForumBridgeConfig.tablePrefix + "members SET id_group=" + forumGroupId + " WHERE member_name='" + username + "'").executeUpdate();
+            ForumBridgeWebsiteDB.dbm.prepare("UPDATE " + ForumBridgeConfig.getTablePrefix() + "members SET id_group=" + forumGroupId + " WHERE member_name='" + username + "'").executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -62,7 +62,7 @@ public class SMF implements ForumBridgeSync {
         //TODO Find how com.gmail.favorlock.forumbridge.SMFisteners.SMF multigroup works
         List<Integer> list = new ArrayList<Integer>();
         try {
-            ResultSet result = ForumBridgeWebsiteDB.dbm.prepare("SELECT id_group FROM " + ForumBridgeConfig.tablePrefix + "members WHERE member_name='" + username + "'").executeQuery();
+            ResultSet result = ForumBridgeWebsiteDB.dbm.prepare("SELECT id_group FROM " + ForumBridgeConfig.getTablePrefix() + "members WHERE member_name='" + username + "'").executeQuery();
             if (result != null) {
                 if (result.next()) {
                     list.add(result.getInt("id_group"));

@@ -24,7 +24,7 @@ public class vBulletin implements ForumBridgeSync {
         try {
             ResultSet rs =
                     ForumBridgeWebsiteDB.dbm.prepare(
-                            "SELECT password,salt FROM " + ForumBridgeConfig.tablePrefix
+                            "SELECT password,salt FROM " + ForumBridgeConfig.getTablePrefix()
                                     + "user WHERE username = '" + username + "'"
                     ).executeQuery();
             if (rs.next()) {
@@ -47,7 +47,7 @@ public class vBulletin implements ForumBridgeSync {
     @Override
     public void changeRank(String username, int forumGroupId) {
         try {
-            ForumBridgeWebsiteDB.dbm.prepare("UPDATE " + ForumBridgeConfig.tablePrefix + "user SET usergroupid=" + forumGroupId + " WHERE username = '" + username + "'").executeUpdate();
+            ForumBridgeWebsiteDB.dbm.prepare("UPDATE " + ForumBridgeConfig.getTablePrefix() + "user SET usergroupid=" + forumGroupId + " WHERE username = '" + username + "'").executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -69,7 +69,7 @@ public class vBulletin implements ForumBridgeSync {
     public List<Integer> getGroup(String username) {
         List<Integer> group = new ArrayList<Integer>();
         try {
-            ResultSet rs = ForumBridgeWebsiteDB.dbm.prepare("SELECT usergroupid FROM " + ForumBridgeConfig.tablePrefix + "user WHERE username = '" + username + "'").executeQuery();
+            ResultSet rs = ForumBridgeWebsiteDB.dbm.prepare("SELECT usergroupid FROM " + ForumBridgeConfig.getTablePrefix() + "user WHERE username = '" + username + "'").executeQuery();
             if (rs.next()) {
                 do {
                     group.add(rs.getInt("usergroupid"));
@@ -77,8 +77,8 @@ public class vBulletin implements ForumBridgeSync {
                 while (rs.next());
             }
             rs.close();
-            if (ForumBridgeConfig.useSecondaryGroups) {
-                rs = ForumBridgeWebsiteDB.dbm.prepare("SELECT membergroupids FROM " + ForumBridgeConfig.tablePrefix + "user WHERE username = '" + username + "'").executeQuery();
+            if (ForumBridgeConfig.isUseSecondaryGroups()) {
+                rs = ForumBridgeWebsiteDB.dbm.prepare("SELECT membergroupids FROM " + ForumBridgeConfig.getTablePrefix() + "user WHERE username = '" + username + "'").executeQuery();
                 if (rs.next()) {
                     do {
                         group.add(rs.getInt("membergroupids"));

@@ -22,7 +22,7 @@ public class Vanilla implements ForumBridgeSync {
     public boolean accountExist(String username, String password) {
         boolean exist = false;
         try {
-            ResultSet rs = ForumBridgeWebsiteDB.dbm.prepare("SELECT Password FROM " + ForumBridgeConfig.tablePrefix +
+            ResultSet rs = ForumBridgeWebsiteDB.dbm.prepare("SELECT Password FROM " + ForumBridgeConfig.getTablePrefix() +
                     "user WHERE Name = '" + username + "'").executeQuery();
             if (rs.next()) {
                 do {
@@ -40,10 +40,10 @@ public class Vanilla implements ForumBridgeSync {
     @Override
     public void changeRank(String username, int forumGroupId) {
         try {
-            ResultSet rs = ForumBridgeWebsiteDB.dbm.prepare("SELECT UserID FROM " + ForumBridgeConfig.tablePrefix +
+            ResultSet rs = ForumBridgeWebsiteDB.dbm.prepare("SELECT UserID FROM " + ForumBridgeConfig.getTablePrefix() +
                     "user WHERE Name = '" + username + "'").executeQuery();
             if (rs != null && rs.next()) {
-                ForumBridgeWebsiteDB.dbm.prepare("UPDATE " + ForumBridgeConfig.tablePrefix + "userrole SET RoleID=" +
+                ForumBridgeWebsiteDB.dbm.prepare("UPDATE " + ForumBridgeConfig.getTablePrefix() + "userrole SET RoleID=" +
                         forumGroupId + " WHERE UserID = " + rs.getString("UserID")).executeUpdate();
             }
             rs.close();
@@ -66,10 +66,10 @@ public class Vanilla implements ForumBridgeSync {
     public List<Integer> getGroup(String username) {
         List<Integer> group = new ArrayList<Integer>();
         try {
-            ResultSet userID = ForumBridgeWebsiteDB.dbm.prepare("SELECT UserID FROM " + ForumBridgeConfig.tablePrefix +
+            ResultSet userID = ForumBridgeWebsiteDB.dbm.prepare("SELECT UserID FROM " + ForumBridgeConfig.getTablePrefix() +
                     "user WHERE Name = '" + username + "'").executeQuery();
             if (userID != null && userID.next()) {
-                ResultSet rs = ForumBridgeWebsiteDB.dbm.prepare("SELECT RoleID FROM " + ForumBridgeConfig.tablePrefix +
+                ResultSet rs = ForumBridgeWebsiteDB.dbm.prepare("SELECT RoleID FROM " + ForumBridgeConfig.getTablePrefix() +
                         "userrole WHERE UserID = " + userID.getString("UserID")).executeQuery();
                 if (rs != null) {
                     while (rs.next()) {

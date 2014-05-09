@@ -71,7 +71,7 @@ public class ForumBridge extends JavaPlugin {
                     ClassLoader loader = new URLClassLoader(new URL[]{dir.toURI().toURL()}, ForumBridgeSync.class.getClassLoader());
                     for (File file : dir.listFiles()) {
                         String name = file.getName().substring(0, file.getName().lastIndexOf("."));
-                        if (name.toLowerCase().equals(ForumBridgeConfig.linkName.toLowerCase())) {
+                        if (name.toLowerCase().equals(ForumBridgeConfig.getLinkName().toLowerCase())) {
 
                             Class<?> clazz = loader.loadClass(name);
                             Object object = clazz.newInstance();
@@ -86,7 +86,7 @@ public class ForumBridge extends JavaPlugin {
                     }
                     if (sync == null) {
                         for (ForumListeners listener : ForumListeners.values()) {
-                            if (listener.name().equalsIgnoreCase(ForumBridgeConfig.linkName)) {
+                            if (listener.name().equalsIgnoreCase(ForumBridgeConfig.getLinkName())) {
                                 Class<?> clazz = listener.getListener();
                                 Object object = clazz.newInstance();
 
