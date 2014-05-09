@@ -79,7 +79,7 @@ public class ForumBridge extends JavaPlugin {
                                 sync = (ForumBridgeSync) object;
                                 ForumBridgeLogger.info("Website link " + name + " loaded!");
                             } else {
-                                ForumBridgeLogger.error("The class file for " + name + " loForumBridges invalid. Is it downloaded correctly?");
+                                ForumBridgeLogger.error("The class file for " + name + " ForumBridge could not be found.");
                                 pm.disablePlugin(this);
                             }
                         }
@@ -116,7 +116,7 @@ public class ForumBridge extends JavaPlugin {
                     ForumBridgeLogger.info("A error occured while loading the forum link class. Error code 3");
                     pm.disablePlugin(this);
                 } catch (ClassNotFoundException e) {
-                    ForumBridgeLogger.info("Forum link class not found, shutting down.... Check if the configuration.forum configuration node is configurated correctly.");
+                    ForumBridgeLogger.info("Forum link class not found, shutting down.... Check if the forum configuration node is configured correctly.");
                     pm.disablePlugin(this);
                 } catch (IOException e) {
                     e.printStackTrace();

@@ -11,7 +11,7 @@ public class ForumBridgeInternalDB {
 
     public ForumBridgeInternalDB(ForumBridge thePlugin) {
         p = thePlugin;
-        db = new SQLite(p.getLogger(), "com/favorlock/ForumBridge", "database", p.getDataFolder().toString());
+        db = new SQLite(p.getLogger(), "ForumBridge", "database", p.getDataFolder().toString());
         if (!db.checkTable("players")) {
             ForumBridgeLogger.dbinfo("Creating table 'players'...");
             String query = "CREATE TABLE players (id INT AUTO_INCREMENT PRIMARY_KEY, player VARCHAR(255), user VARCHAR(255));";
