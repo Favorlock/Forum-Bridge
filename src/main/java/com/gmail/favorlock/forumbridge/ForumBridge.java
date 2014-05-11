@@ -1,7 +1,6 @@
 package com.gmail.favorlock.forumbridge;
 
 import com.gmail.favorlock.forumbridge.commands.*;
-import com.gmail.favorlock.forumbridge.extras.Metrics;
 import lombok.Getter;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
@@ -100,10 +99,6 @@ public class ForumBridge extends JavaPlugin {
                             pm.disablePlugin(this);
                             return;
                         }
-                    } else {
-                        //Loading metrics
-                        Metrics metrics = new Metrics(this);
-                        metrics.start();
                     }
 
                 } catch (MalformedURLException e) {
