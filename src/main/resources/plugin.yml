@@ -2,7 +2,7 @@ name: Forum-Bridge
 author:
     - Favorlock
 main: com.gmail.favorlock.forumbridge.ForumBridge
-version: 1.0.4b
+version: 1.1.1a
 database: false
 description: A forum bridge plugin for Bukkit.
 commands:
@@ -67,6 +67,7 @@ permissions:
       bbb.unban: true
       bbb.ban: true
       bbb.fusername: true
+      bbb.rank: true
   bbb.sync:
     description: Allow the usage of the /sync command
     default: true
@@ -91,4 +92,6 @@ permissions:
   bbb.fusername:
     description: Allow the usage of the /fusername command
     default: op
-    
+  bbb.rank:
+    description: Allow the usage of the /frank command
+    default: op 
